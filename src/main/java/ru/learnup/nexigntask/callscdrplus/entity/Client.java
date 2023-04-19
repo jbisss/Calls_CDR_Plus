@@ -23,7 +23,15 @@ public class Client {
     @Column(name = "benefit_minutes_left")
     private Integer benefitMinutesLeft;
 
-    @OneToOne(mappedBy = "tariff", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private Tariff tariff;
+    /*@OneToOne(mappedBy = "clients", fetch = FetchType.EAGER)
+    private Tariff tariff;*/
 
+    @Override
+    public String toString(){
+        return "{id= " + id
+                + ", phone_number= " + phoneNumber
+                + ", balance= " + balance
+                + ", benefit_minutes_left= " + benefitMinutesLeft
+                + "};\n";
+    }
 }
