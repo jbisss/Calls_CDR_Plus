@@ -3,6 +3,10 @@ package ru.learnup.nexigntask.callscdrplus.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
+import java.util.List;
 
 @Entity
 @Table(name = "tariff")
@@ -11,6 +15,7 @@ import lombok.Setter;
 public class Tariff {
 
     @Id
+    @Column(name = "tariff_id")
     private String tariffId;
 
     @Column(name = "tariff_name")
@@ -22,13 +27,26 @@ public class Tariff {
     @Column(name = "benefit_minutes")
     private Integer benefitMinutes;
 
-    @JoinColumn
-    @OneToOne
-    private Client client;
+    @OneToMany(mappedBy = "tariff", fetch = FetchType.EAGER)
+    @Fetch(FetchMode.SUBSELECT)
+    private List<Client> client;
 
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne
+    @JoinColumn(name = "in_call_cost_id")
     private CallCost inCallCostId;
 
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne
+    @JoinColumn(name = "out_call_cost_id")
     private CallCost outCallCostId;
+
+    @Override
+    public String toString(){
+        return " {id= " + tariffId
+                + ", tariffName= " + tariffName
+                + ", subscriptionFee= " + subscriptionFee
+                + ", benefitMinutes= " + benefitMinutes
+                + inCallCostId
+                + outCallCostId
+                + "}";
+    }
 }

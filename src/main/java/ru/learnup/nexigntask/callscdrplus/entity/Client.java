@@ -12,6 +12,7 @@ public class Client {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
     @Column(name = "phone_number")
@@ -23,15 +24,17 @@ public class Client {
     @Column(name = "benefit_minutes_left")
     private Integer benefitMinutesLeft;
 
-    /*@OneToOne(mappedBy = "clients", fetch = FetchType.EAGER)
-    private Tariff tariff;*/
+    @ManyToOne
+    @JoinColumn(name = "tariff_id")
+    private Tariff tariff;
 
     @Override
     public String toString(){
-        return "{id= " + id
+        return "\n{id= " + id
                 + ", phone_number= " + phoneNumber
                 + ", balance= " + balance
                 + ", benefit_minutes_left= " + benefitMinutesLeft
-                + "};\n";
+                + tariff
+                + "}";
     }
 }

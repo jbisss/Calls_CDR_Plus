@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class TimeMeasurer {
 
-    @Pointcut(value = "execution(* ru.learnup.nexigntask.callscdrplus.service.GeneratorCdrService.*(..))")
+    @Pointcut(value = "execution(* ru.learnup.nexigntask.callscdrplus.service.CdrService.*(..))")
     private void generatorCdrServiceClassMethods() {}
 
     @Around("generatorCdrServiceClassMethods()")

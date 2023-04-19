@@ -3,6 +3,10 @@ package ru.learnup.nexigntask.callscdrplus.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
+import java.util.List;
 
 @Entity
 @Table(name = "call_cost")
@@ -20,7 +24,19 @@ public class CallCost {
     @Column(name = "benefit_minute_cost")
     private Double benefitMinuteCost;
 
-    @JoinColumn
-    @OneToOne
-    private Tariff tariff;
+    @OneToMany(mappedBy = "inCallCostId", fetch = FetchType.EAGER)
+    @Fetch(FetchMode.SUBSELECT)
+    private List<Tariff> tariff_1;
+
+    @OneToMany(mappedBy = "outCallCostId", fetch = FetchType.EAGER)
+    @Fetch(FetchMode.SUBSELECT)
+    private List<Tariff> tariff_2;
+
+    @Override
+    public String toString(){
+        return "{id= " + id
+                + ", defaultMinutesCost= " + defaultMinuteCost
+                + ", benefitMinutesCost= " + benefitMinuteCost
+                + "}";
+    }
 }

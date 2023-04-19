@@ -16,18 +16,22 @@ import java.util.*;
 
 @Service
 @Slf4j
-public class GeneratorCdrService {
+public class CdrService {
 
     private final RomashkaService romashkaService;
     private final Map<String, Queue<Call>> generatedCalls;
     private final File cdr;
 
-    public GeneratorCdrService(RomashkaService romashkaService) {
+    public CdrService(RomashkaService romashkaService) {
         this.romashkaService = romashkaService;
         generatedCalls = new HashMap<>();
         cdr = new File("./src/main/resources/static/cdr.txt");
     }
 
+    /**
+     * Executes CDR Service.
+     * Итогом работы данного сервиса является сгенерированный CDR файл.
+     */
     public void execute() {
         generateCalls();
         generateCdr();
