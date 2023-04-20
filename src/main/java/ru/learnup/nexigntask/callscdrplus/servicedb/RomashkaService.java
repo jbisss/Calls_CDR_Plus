@@ -1,6 +1,7 @@
 package ru.learnup.nexigntask.callscdrplus.servicedb;
 
 import org.springframework.stereotype.Service;
+import ru.learnup.nexigntask.callscdrplus.cache.SubscriberCache;
 import ru.learnup.nexigntask.callscdrplus.entity.Client;
 import ru.learnup.nexigntask.callscdrplus.entity.Tariff;
 import ru.learnup.nexigntask.callscdrplus.pojo.dbresults.NumberTariff;
@@ -33,5 +34,9 @@ public class RomashkaService {
         List<NumberTariff> numberTariffs = repository.findPositiveBalance();
         return numberTariffs.stream()
                 .collect(Collectors.toMap(NumberTariff::getNumber, NumberTariff::getTariffId));
+    }
+
+    public void saveClients(Set<Client> clients){
+        repository.saveAll(clients);
     }
 }

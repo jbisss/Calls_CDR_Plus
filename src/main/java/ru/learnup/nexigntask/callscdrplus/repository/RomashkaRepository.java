@@ -19,4 +19,6 @@ public interface RomashkaRepository extends JpaRepository<Client, Long> {
             " c.phoneNumber, c.tariff) from Client as c where c.balance > 0")
     List<NumberTariff> findPositiveBalance();
 
+    @Override
+    <S extends Client> List<S> saveAll(Iterable<S> entities);
 }

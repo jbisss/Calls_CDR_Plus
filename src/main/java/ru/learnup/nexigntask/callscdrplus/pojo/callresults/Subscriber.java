@@ -55,14 +55,14 @@ public class Subscriber {
             if(call.getCallCode() == CallCode.CALL_IN) {
                 price = benefitMinutes * client.getTariff().getInCallCostId().getBenefitMinuteCost()
                         + defaultMinutes * client.getTariff().getInCallCostId().getDefaultMinuteCost();
-                if(client.getTariff().getInCallCostId().getBenefitMinuteCost() != 0) {
+                if(client.getBenefitMinutesLeft() != 0) {
                     client.setBenefitMinutesLeft(benefitMinutesLeft - benefitMinutes);
                 }
             }
             if(call.getCallCode() == CallCode.CALL_OUT) {
                 price = benefitMinutes * client.getTariff().getOutCallCostId().getBenefitMinuteCost()
                         + defaultMinutes * client.getTariff().getOutCallCostId().getDefaultMinuteCost();
-                if(client.getTariff().getOutCallCostId().getBenefitMinuteCost() != 0) {
+                if(client.getBenefitMinutesLeft() != 0) {
                     client.setBenefitMinutesLeft(benefitMinutesLeft - benefitMinutes);
                 }
             }
@@ -70,6 +70,7 @@ public class Subscriber {
             totalCost += price;
             price = 0;
         }
+        client.setBalance(client.getBalance() - totalCost);
     }
 
     /**
