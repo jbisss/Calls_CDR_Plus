@@ -1,4 +1,4 @@
-package ru.learnup.nexigntask.callscdrplus.pojoclasses;
+package ru.learnup.nexigntask.callscdrplus.pojoclasses.dbresults;
 
 import lombok.Data;
 import ru.learnup.nexigntask.callscdrplus.entity.Tariff;

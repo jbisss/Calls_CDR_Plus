@@ -1,4 +1,4 @@
-package ru.learnup.nexigntask.callscdrplus.pojoclasses;
+package ru.learnup.nexigntask.callscdrplus.pojoclasses.callresults;
 
 import ru.learnup.nexigntask.callscdrplus.enums.CallCode;
 

@@ -2,10 +2,9 @@ package ru.learnup.nexigntask.callscdrplus.service;
 
 import org.springframework.stereotype.Service;
 import ru.learnup.nexigntask.callscdrplus.entity.Client;
-import ru.learnup.nexigntask.callscdrplus.pojoclasses.NumberTariff;
+import ru.learnup.nexigntask.callscdrplus.pojoclasses.dbresults.NumberTariff;
 import ru.learnup.nexigntask.callscdrplus.repository.RomashkaRepository;
 
-import javax.swing.event.CaretListener;
 import java.util.List;
 import java.util.Set;
 

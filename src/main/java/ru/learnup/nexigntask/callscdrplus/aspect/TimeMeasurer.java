@@ -7,12 +7,14 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
 
+import java.util.Arrays;
+
 @Component
 @Aspect
 @Slf4j
 public class TimeMeasurer {
 
-    @Pointcut(value = "execution(* ru.learnup.nexigntask.callscdrplus.service.CdrService.*(..))")
+    @Pointcut(value = "execution(* ru.learnup.nexigntask.callscdrplus.service.*.execute(..))")
     private void generatorCdrServiceClassMethods() {}
 
     @Around("generatorCdrServiceClassMethods()")
@@ -26,7 +28,7 @@ public class TimeMeasurer {
         }
         long endTime = System.currentTimeMillis();
         long duration = endTime - startTime;
-        log.info("Method \"{}\" duration: {} ms", pjp.getSignature().getName(), duration);
+        log.info("Method {}.{}() duration: {} ms", pjp.getSignature().getDeclaringType(), pjp.getSignature().getName(), duration);
         return result;
     }
 }

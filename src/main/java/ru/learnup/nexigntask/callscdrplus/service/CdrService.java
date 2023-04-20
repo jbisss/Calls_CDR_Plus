@@ -3,7 +3,7 @@ package ru.learnup.nexigntask.callscdrplus.service;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import ru.learnup.nexigntask.callscdrplus.enums.CallCode;
-import ru.learnup.nexigntask.callscdrplus.pojoclasses.Call;
+import ru.learnup.nexigntask.callscdrplus.pojoclasses.callresults.Call;
 
 import java.io.*;
 import java.time.Duration;
@@ -111,11 +111,13 @@ public class CdrService {
         maxEndTime = maxEndTimeOptional
                 .orElseGet(() -> generateRandomDate(LocalDateTime.of(2023, 1, 1, 1, 1, 1)
                                 , LocalDateTime.of(2023, 4, 1, 1, 1, 1)));
-        LocalDateTime startCallDate = generateRandomDate(maxEndTime, LocalDateTime.now().minus(1, ChronoUnit.DAYS));
-        LocalDateTime endCallDate = generateRandomDate(startCallDate, startCallDate.plus(5, ChronoUnit.HOURS));
-        while(startCallDate.compareTo(endCallDate) > 0) {
-            endCallDate = generateRandomDate(startCallDate, startCallDate.plus(1, ChronoUnit.HOURS));
+        LocalDateTime present = LocalDateTime.now().minus(1, ChronoUnit.DAYS);
+        if(maxEndTime.compareTo(present) > 0) {
+            present = maxEndTime.plus(1, ChronoUnit.HOURS);
         }
+        LocalDateTime startCallDate = generateRandomDate(maxEndTime, present);
+        LocalDateTime startCallDateDop = startCallDate.plus(1, ChronoUnit.HOURS);
+        LocalDateTime endCallDate = generateRandomDate(startCallDate, startCallDateDop);
         generatedCalls.get(number).add(new Call(generateCallType(), startCallDate, endCallDate));
     }
 
@@ -142,11 +144,10 @@ public class CdrService {
         Random random = new Random();
         long startEpochSecond = startTime.toEpochSecond(ZoneOffset.UTC);
         long endEpochSecond = endTime.toEpochSecond(ZoneOffset.UTC);
-        long randomEpochSecond = startEpochSecond + random.nextLong() % (endEpochSecond - startEpochSecond + 1);
+        long randomEpochSecond = startEpochSecond + random.nextLong((endEpochSecond - startEpochSecond));
         Instant randomInstant = Instant.ofEpochSecond(randomEpochSecond);
-        Duration randomDuration = Duration.ofSeconds(random.nextLong() % Duration.ofDays(1).getSeconds());
-        LocalDateTime randomLocalDateTime = LocalDateTime.ofInstant(randomInstant, ZoneOffset.UTC);
-        randomLocalDateTime = randomLocalDateTime.plus(randomDuration).truncatedTo(ChronoUnit.SECONDS);
-        return randomLocalDateTime;
+        // Duration randomDuration = Duration.ofSeconds(random.nextLong(Duration.ofDays(1).getSeconds()));
+        // randomLocalDateTime = randomLocalDateTime.plus(randomDuration).truncatedTo(ChronoUnit.SECONDS);
+        return LocalDateTime.ofInstant(randomInstant, ZoneOffset.UTC);
     }
 }
