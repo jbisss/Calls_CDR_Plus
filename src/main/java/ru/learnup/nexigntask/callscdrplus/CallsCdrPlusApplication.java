@@ -7,7 +7,7 @@ import ru.learnup.nexigntask.callscdrplus.cache.SubscriberCache;
 import ru.learnup.nexigntask.callscdrplus.service.BrtService;
 import ru.learnup.nexigntask.callscdrplus.service.CdrService;
 import ru.learnup.nexigntask.callscdrplus.service.HrsService;
-import ru.learnup.nexigntask.callscdrplus.servicedb.RomashkaService;
+import ru.learnup.nexigntask.callscdrplus.service.RomashkaService;
 
 @SpringBootApplication
 public class CallsCdrPlusApplication {
@@ -15,7 +15,9 @@ public class CallsCdrPlusApplication {
     public static void main(String[] args) {
         ApplicationContext context = SpringApplication.run(CallsCdrPlusApplication.class, args);
         RomashkaService romashkaService = context.getBean(RomashkaService.class);
+        // Getting Clients from DB
         context.getBean(SubscriberCache.class).setCachedClients(romashkaService.getClients());
+        // Getting Number of client with Tariff from DB
         context.getBean(SubscriberCache.class).setCachedNumberTariff(romashkaService.getPositive());
         // Executing CDR Service
         context.getBean(CdrService.class).execute();

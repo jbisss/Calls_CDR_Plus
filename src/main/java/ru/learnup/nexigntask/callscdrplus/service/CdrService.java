@@ -4,7 +4,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import ru.learnup.nexigntask.callscdrplus.pojo.enums.CallCode;
 import ru.learnup.nexigntask.callscdrplus.pojo.callresults.Call;
-import ru.learnup.nexigntask.callscdrplus.servicedb.RomashkaService;
 
 import java.io.*;
 import java.time.Instant;
@@ -20,12 +19,12 @@ public class CdrService {
 
     private final RomashkaService romashkaService;
     private final Map<String, Queue<Call>> generatedCalls;
-    private final File cdr;
+    private final File cdrFile;
 
-    public CdrService(RomashkaService romashkaService) {
+    public CdrService(RomashkaService romashkaService, File cdrFile) {
         this.romashkaService = romashkaService;
+        this.cdrFile = cdrFile;
         generatedCalls = new HashMap<>();
-        cdr = new File("./src/main/resources/static/cdr.txt");
     }
 
     /**
@@ -38,7 +37,7 @@ public class CdrService {
     }
 
     private void generateCdr() {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(cdr, false))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(cdrFile, false))) {
             writeRecords(writer);
         } catch (IOException e) {
             throw new RuntimeException("File can't be written!");

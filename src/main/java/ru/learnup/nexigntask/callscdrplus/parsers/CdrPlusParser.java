@@ -19,9 +19,15 @@ public class CdrPlusParser implements Parser {
         this.subscriberCache = subscriberCache;
     }
 
+    /**
+     * Парсит cdrPlus файл, заносит в кэш информацию об абонентах, представленныз в файле
+     *
+     * @param file CdrPlusFile
+     * @throws IOException exception
+     */
+    @Override
     public void parseFile(File file) throws IOException {
         BufferedReader reader = new BufferedReader(new FileReader(file));
-
         String line = reader.readLine();
         while (line != null) {
             line = line.replaceAll(" ", "");
@@ -35,7 +41,6 @@ public class CdrPlusParser implements Parser {
             }
             line = reader.readLine();
         }
-
         reader.close();
     }
 }
