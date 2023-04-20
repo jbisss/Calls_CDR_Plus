@@ -1,6 +1,6 @@
-package ru.learnup.nexigntask.callscdrplus.pojoclasses.callresults;
+package ru.learnup.nexigntask.callscdrplus.pojo.callresults;
 
-import ru.learnup.nexigntask.callscdrplus.enums.CallCode;
+import ru.learnup.nexigntask.callscdrplus.pojo.enums.CallCode;
 
 import java.text.DateFormat;
 import java.text.ParseException;

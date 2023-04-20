@@ -27,4 +27,8 @@ public class BrtService {
             throw new RuntimeException(e);
         }
     }
+
+    public void updateDatabase(){
+
+    }
 }

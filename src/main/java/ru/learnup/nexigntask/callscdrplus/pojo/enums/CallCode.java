@@ -1,4 +1,4 @@
-package ru.learnup.nexigntask.callscdrplus.enums;
+package ru.learnup.nexigntask.callscdrplus.pojo.enums;
 
 public enum CallCode {
     CALL_IN("02"),

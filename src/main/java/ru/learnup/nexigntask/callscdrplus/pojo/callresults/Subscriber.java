@@ -1,7 +1,7 @@
-package ru.learnup.nexigntask.callscdrplus.pojoclasses.callresults;
+package ru.learnup.nexigntask.callscdrplus.pojo.callresults;
 
-import ru.learnup.nexigntask.callscdrplus.enums.CallCode;
-import ru.learnup.nexigntask.callscdrplus.enums.Tariff;
+import ru.learnup.nexigntask.callscdrplus.entity.Client;
+import ru.learnup.nexigntask.callscdrplus.pojo.enums.CallCode;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -10,19 +10,16 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class Subscriber {
+
     public static HashMap<String, Subscriber> subscribers = new HashMap<>();
     private final String number;
-    private final Tariff tariff;
+    private String tariff;
     private final ArrayList<Call> calls = new ArrayList<>();
     private double totalCost;
 
-    public Subscriber(String number, Tariff tariff) {
+    public Subscriber(String number) {
         this.number = number;
-        this.tariff = tariff;
         this.totalCost = 0;
-        if (tariff == Tariff.UNLIMITED) {
-            totalCost += 100;
-        }
     }
 
     /**
@@ -39,43 +36,39 @@ public class Subscriber {
     /**
      * Counts a cost of each call
      */
-    public void countCallsCost() {
+    public void countCallsCost(Client client) {
         List<Call> sortedCalls = calls.stream()
                 .sorted(Comparator.comparing(Call::getStartTime)).toList();
-        long totalDuration = 0;
-        int minutesTotal = 0;
         int minutesCall;
         double price = 0;
+        tariff = client.getTariff().getTariffId();
+        totalCost += client.getTariff().getSubscriptionFee();
         for (Call call : sortedCalls) {
-            minutesCall = (int) (call.getDurationNumber() / 60);
-            if (tariff == Tariff.DEFAULT) {
-                if (call.getCallCode() == CallCode.CALL_OUT) {
-                    if (minutesTotal > 100) {
-                        price = minutesCall * 1.5d;
-                        call.setCost(price);
-                    } else if (minutesTotal < 100 && minutesTotal + minutesCall > 100) {
-                        price = ((100 - minutesTotal) * 0.5d) + ((minutesTotal + minutesCall - 100) * 1.5d);
-                        call.setCost(price);
-                    } else {
-                        price = minutesCall * 0.5d;
-                        call.setCost(price);
-                    }
-                }
-            } else if (tariff == Tariff.UNLIMITED) {
-                if (minutesTotal > 300) {
-                    price = (minutesCall) * 1.0d;
-                    call.setCost(price);
-                } else if (minutesTotal < 300 && minutesTotal + minutesCall > 300) {
-                    price = ((minutesTotal + minutesCall - 300) * 1.0d);
-                    call.setCost(price);
-                }
-            } else if (tariff == Tariff.MINUTE_BY_MINUTE) {
-                price = minutesCall * 1.5d;
-                call.setCost(price);
+            int flag = (int) call.getDurationNumber() % 60;
+            if(flag > 0) {
+                minutesCall = (int)(call.getDurationNumber() / 60) + 1;
+            } else {
+                minutesCall = (int)(call.getDurationNumber() / 60);
             }
-            totalDuration += call.getDurationNumber();
-            minutesTotal = (int) (totalDuration / 60);
-            this.totalCost += price;
+            int benefitMinutesLeft = client.getBenefitMinutesLeft();
+            int benefitMinutes = Math.min(benefitMinutesLeft, minutesCall);
+            int defaultMinutes = (benefitMinutesLeft > minutesCall) ? 0 : minutesCall - benefitMinutesLeft;
+            if(call.getCallCode() == CallCode.CALL_IN) {
+                price = benefitMinutes * client.getTariff().getInCallCostId().getBenefitMinuteCost()
+                        + defaultMinutes * client.getTariff().getInCallCostId().getDefaultMinuteCost();
+                if(client.getTariff().getInCallCostId().getBenefitMinuteCost() != 0) {
+                    client.setBenefitMinutesLeft(benefitMinutesLeft - benefitMinutes);
+                }
+            }
+            if(call.getCallCode() == CallCode.CALL_OUT) {
+                price = benefitMinutes * client.getTariff().getOutCallCostId().getBenefitMinuteCost()
+                        + defaultMinutes * client.getTariff().getOutCallCostId().getDefaultMinuteCost();
+                if(client.getTariff().getOutCallCostId().getBenefitMinuteCost() != 0) {
+                    client.setBenefitMinutesLeft(benefitMinutesLeft - benefitMinutes);
+                }
+            }
+            call.setCost(price);
+            totalCost += price;
             price = 0;
         }
     }
@@ -131,11 +124,11 @@ public class Subscriber {
         String line = "-----------------------------------------------------------------------------\n";
         StringBuilder resultBuilder = new StringBuilder();
         resultBuilder.append("Tariff index: ");
-        resultBuilder.append(this.tariff.getCode());
+        resultBuilder.append(tariff);
         resultBuilder.append("\n");
         resultBuilder.append(line);
         resultBuilder.append("Report for phone number ");
-        resultBuilder.append(this.number);
+        resultBuilder.append(number);
         resultBuilder.append(":\n");
         resultBuilder.append(line);
         resultBuilder.append("| Call Type |      Start Time     |       End Time      | Duration |  Cost  |\n");
@@ -152,10 +145,10 @@ public class Subscriber {
         resultBuilder.append(buildCallString(callIn));
         resultBuilder.append(line);
         resultBuilder.append("|                                           Total Cost: |     ");
-        if (this.totalCost < 100) {
+        if (totalCost < 100) {
             resultBuilder.append(" ");
         }
-        resultBuilder.append(String.format("%3.2f", this.totalCost));
+        resultBuilder.append(String.format("%3.2f", totalCost));
         resultBuilder.append(" rubles |\n");
         resultBuilder.append(line);
         return resultBuilder.toString();

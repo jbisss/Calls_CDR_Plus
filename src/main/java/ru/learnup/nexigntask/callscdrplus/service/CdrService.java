@@ -2,11 +2,11 @@ package ru.learnup.nexigntask.callscdrplus.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import ru.learnup.nexigntask.callscdrplus.enums.CallCode;
-import ru.learnup.nexigntask.callscdrplus.pojoclasses.callresults.Call;
+import ru.learnup.nexigntask.callscdrplus.pojo.enums.CallCode;
+import ru.learnup.nexigntask.callscdrplus.pojo.callresults.Call;
+import ru.learnup.nexigntask.callscdrplus.servicedb.RomashkaService;
 
 import java.io.*;
-import java.time.Duration;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
@@ -109,8 +109,8 @@ public class CdrService {
                 .max(LocalDateTime::compareTo);
         LocalDateTime maxEndTime;
         maxEndTime = maxEndTimeOptional
-                .orElseGet(() -> generateRandomDate(LocalDateTime.of(2023, 1, 1, 1, 1, 1)
-                                , LocalDateTime.of(2023, 4, 1, 1, 1, 1)));
+                .orElseGet(() -> generateRandomDate(LocalDateTime.of(2022, 1, 1, 1, 1, 1)
+                                , LocalDateTime.of(2023, 1, 1, 1, 1, 1)));
         LocalDateTime present = LocalDateTime.now().minus(1, ChronoUnit.DAYS);
         if(maxEndTime.compareTo(present) > 0) {
             present = maxEndTime.plus(1, ChronoUnit.HOURS);
@@ -146,8 +146,6 @@ public class CdrService {
         long endEpochSecond = endTime.toEpochSecond(ZoneOffset.UTC);
         long randomEpochSecond = startEpochSecond + random.nextLong((endEpochSecond - startEpochSecond));
         Instant randomInstant = Instant.ofEpochSecond(randomEpochSecond);
-        // Duration randomDuration = Duration.ofSeconds(random.nextLong(Duration.ofDays(1).getSeconds()));
-        // randomLocalDateTime = randomLocalDateTime.plus(randomDuration).truncatedTo(ChronoUnit.SECONDS);
         return LocalDateTime.ofInstant(randomInstant, ZoneOffset.UTC);
     }
 }

@@ -3,13 +3,10 @@ package ru.learnup.nexigntask.callscdrplus.parsers;
 import org.springframework.stereotype.Component;
 import ru.learnup.nexigntask.callscdrplus.entity.Tariff;
 import ru.learnup.nexigntask.callscdrplus.parsers.contracts.Parser;
-import ru.learnup.nexigntask.callscdrplus.pojoclasses.dbresults.NumberTariff;
-import ru.learnup.nexigntask.callscdrplus.service.RomashkaService;
+import ru.learnup.nexigntask.callscdrplus.servicedb.RomashkaService;
 
 import java.io.*;
-import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @Component
 public class CdrParser implements Parser {
@@ -23,9 +20,7 @@ public class CdrParser implements Parser {
     public void parseFile(File file) throws IOException {
         File cdrPlus = new File(".\\src\\main\\resources\\static\\cdrplus.txt");
 
-        List<NumberTariff> numberTariffs = romashkaService.getPositive();
-        Map<String, Tariff> numberTariffMap = numberTariffs.stream()
-                .collect(Collectors.toMap(NumberTariff::getNumber, NumberTariff::getTariffId));
+        Map<String, Tariff> numberTariffMap = romashkaService.getPositive();
 
         BufferedWriter writer = new BufferedWriter(new FileWriter(cdrPlus));
         //
@@ -33,7 +28,6 @@ public class CdrParser implements Parser {
         // наладить создание и работу с файлами!
         //
         //
-        int i = 0;
         BufferedReader reader = new BufferedReader(new FileReader(file));
         String line = reader.readLine();
         while (line != null) {
@@ -47,7 +41,6 @@ public class CdrParser implements Parser {
                 writer.write(lineBuilder.toString());
             }
             line = reader.readLine();
-            i++;
         }
         reader.close();
         writer.close();

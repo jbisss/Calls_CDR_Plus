@@ -1,11 +1,16 @@
 package ru.learnup.nexigntask.callscdrplus.service;
 
 import org.springframework.stereotype.Service;
+import ru.learnup.nexigntask.callscdrplus.entity.Client;
 import ru.learnup.nexigntask.callscdrplus.parsers.CdrPlusParser;
-import ru.learnup.nexigntask.callscdrplus.pojoclasses.callresults.Subscriber;
+import ru.learnup.nexigntask.callscdrplus.pojo.callresults.Subscriber;
+import ru.learnup.nexigntask.callscdrplus.entity.Tariff;
+import ru.learnup.nexigntask.callscdrplus.servicedb.RomashkaService;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Map;
+import java.util.Set;
 
 @Service
 public class HrsService {
@@ -28,6 +33,16 @@ public class HrsService {
             cdrPlusParser.parseFile(cdrPlus);
         } catch (IOException e) {
             throw new RuntimeException(e);
+        }
+
+        Map<String, Tariff> numberTariff = romashkaService.getPositive();
+        Set<Client> clients = romashkaService.getClients();
+
+        for(Client client : clients) {
+            if(numberTariff.containsKey(client.getPhoneNumber())
+                    && Subscriber.subscribers.containsKey(client.getPhoneNumber())) {
+                Subscriber.subscribers.get(client.getPhoneNumber()).countCallsCost(client);
+            }
         }
         printSubscribersTotalCost();
     }

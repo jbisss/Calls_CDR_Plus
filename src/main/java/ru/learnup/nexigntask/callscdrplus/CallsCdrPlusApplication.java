@@ -19,5 +19,7 @@ public class CallsCdrPlusApplication {
         context.getBean(BrtService.class).execute();
         // Executing HRS Service
         context.getBean(HrsService.class).execute();
+        // Updating DB with BRT Service
+        context.getBean(BrtService.class).updateDatabase();
     }
 }
