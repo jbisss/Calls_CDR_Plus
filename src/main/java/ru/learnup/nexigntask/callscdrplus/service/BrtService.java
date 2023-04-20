@@ -2,17 +2,22 @@ package ru.learnup.nexigntask.callscdrplus.service;
 
 import org.springframework.stereotype.Service;
 import ru.learnup.nexigntask.callscdrplus.parsers.CdrParser;
+import ru.learnup.nexigntask.callscdrplus.pojo.callresults.Subscriber;
+import ru.learnup.nexigntask.callscdrplus.servicedb.RomashkaService;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Map;
 
 @Service
 public class BrtService {
 
     private final CdrParser cdrParser;
+    private final RomashkaService romashkaService;
 
-    public BrtService(CdrParser cdrParser) {
+    public BrtService(CdrParser cdrParser, RomashkaService romashkaService) {
         this.cdrParser = cdrParser;
+        this.romashkaService = romashkaService;
     }
 
     /**
@@ -29,6 +34,6 @@ public class BrtService {
     }
 
     public void updateDatabase(){
-
+        // Map<String, Subscriber> subs = Subscriber.subscribers;
     }
 }

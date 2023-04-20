@@ -11,7 +11,6 @@ import java.util.stream.Collectors;
 
 public class Subscriber {
 
-    public static HashMap<String, Subscriber> subscribers = new HashMap<>();
     private final String number;
     private String tariff;
     private final ArrayList<Call> calls = new ArrayList<>();

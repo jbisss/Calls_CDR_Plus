@@ -1,11 +1,10 @@
 package ru.learnup.nexigntask.callscdrplus.service;
 
 import org.springframework.stereotype.Service;
+import ru.learnup.nexigntask.callscdrplus.cache.SubscriberCache;
 import ru.learnup.nexigntask.callscdrplus.entity.Client;
 import ru.learnup.nexigntask.callscdrplus.parsers.CdrPlusParser;
-import ru.learnup.nexigntask.callscdrplus.pojo.callresults.Subscriber;
 import ru.learnup.nexigntask.callscdrplus.entity.Tariff;
-import ru.learnup.nexigntask.callscdrplus.servicedb.RomashkaService;
 
 import java.io.File;
 import java.io.IOException;
@@ -15,12 +14,12 @@ import java.util.Set;
 @Service
 public class HrsService {
 
-    private final RomashkaService romashkaService;
     private final CdrPlusParser cdrPlusParser;
+    private final SubscriberCache subscriberCache;
 
-    public HrsService(RomashkaService romashkaService, CdrPlusParser cdrPlusParser) {
-        this.romashkaService = romashkaService;
+    public HrsService(CdrPlusParser cdrPlusParser, SubscriberCache subscriberCache) {
         this.cdrPlusParser = cdrPlusParser;
+        this.subscriberCache = subscriberCache;
     }
 
     /**
@@ -35,21 +34,21 @@ public class HrsService {
             throw new RuntimeException(e);
         }
 
-        Map<String, Tariff> numberTariff = romashkaService.getPositive();
-        Set<Client> clients = romashkaService.getClients();
+        Map<String, Tariff> numberTariff = subscriberCache.getCachedNumberTariff();
+        Set<Client> clients = subscriberCache.getCachedClients();
 
         for(Client client : clients) {
             if(numberTariff.containsKey(client.getPhoneNumber())
-                    && Subscriber.subscribers.containsKey(client.getPhoneNumber())) {
-                Subscriber.subscribers.get(client.getPhoneNumber()).countCallsCost(client);
+                    && subscriberCache.getSubscribers().containsKey(client.getPhoneNumber())) {
+                subscriberCache.getSubscribers().get(client.getPhoneNumber()).countCallsCost(client);
             }
         }
-        printSubscribersTotalCost();
+        // printSubscribersTotalCost();
     }
 
     private void printSubscribersTotalCost(){
-        for (String key : Subscriber.subscribers.keySet()) {
-            System.out.println(Subscriber.subscribers.get(key));
+        for (String key : subscriberCache.getSubscribers().keySet()) {
+            System.out.println(subscriberCache.getSubscribers().get(key));
         }
     }
 }
