@@ -1,5 +1,8 @@
 package ru.learnup.nexigntask.callscdrplus.pojo.callresults;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Getter;
+import lombok.Setter;
 import ru.learnup.nexigntask.callscdrplus.pojo.enums.CallCode;
 
 import java.text.DateFormat;
@@ -7,15 +10,21 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 
+@Getter
+@Setter
 public class Call {
-    private long durationDecimal;
+
     private final CallCode callCode;
     private String startTime;
     private String endTime;
-    private LocalDateTime startDateTime;
-    private LocalDateTime endDateTime;
     private String duration;
     private double cost;
+    @JsonIgnore
+    private LocalDateTime startDateTime;
+    @JsonIgnore
+    private LocalDateTime endDateTime;
+    @JsonIgnore
+    private long durationDecimal;
 
     /**
      * @param callCode  code of call
@@ -105,62 +114,5 @@ public class Call {
         long duration = (dateFormat.parse(this.endTime).getTime() - dateFormat.parse(this.startTime).getTime()) / 1000;
         this.durationDecimal = duration;
         this.duration = convertDurationToString(duration);
-    }
-
-    /**
-     * @param cost of call
-     */
-    public void setCost(double cost) {
-        this.cost = cost;
-    }
-
-    public LocalDateTime getStartDateTime() {
-        return startDateTime;
-    }
-
-    public LocalDateTime getEndDateTime() {
-        return endDateTime;
-    }
-
-    /**
-     * @return Numeric representation of duration
-     */
-    public long getDurationNumber() {
-        return durationDecimal;
-    }
-
-    /**
-     * @return String representation of duration
-     */
-    public String getDuration() {
-        return duration;
-    }
-
-    /**
-     * @return callCode of call
-     */
-    public CallCode getCallCode() {
-        return callCode;
-    }
-
-    /**
-     * @return end Time
-     */
-    public String getEndTime() {
-        return endTime;
-    }
-
-    /**
-     * @return cost of a call
-     */
-    public double getCost() {
-        return cost;
-    }
-
-    /**
-     * @return start Time
-     */
-    public String getStartTime() {
-        return startTime;
     }
 }

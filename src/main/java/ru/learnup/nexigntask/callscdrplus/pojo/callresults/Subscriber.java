@@ -1,5 +1,6 @@
 package ru.learnup.nexigntask.callscdrplus.pojo.callresults;
 
+import lombok.Getter;
 import ru.learnup.nexigntask.callscdrplus.entity.Client;
 import ru.learnup.nexigntask.callscdrplus.pojo.enums.CallCode;
 
@@ -9,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Getter
 public class Subscriber {
 
     private final String number;
@@ -43,11 +45,11 @@ public class Subscriber {
         tariff = client.getTariff().getTariffId();
         totalCost += client.getTariff().getSubscriptionFee();
         for (Call call : sortedCalls) {
-            int flag = (int) call.getDurationNumber() % 60;
+            int flag = (int) call.getDurationDecimal() % 60;
             if(flag > 0) {
-                minutesCall = (int)(call.getDurationNumber() / 60) + 1;
+                minutesCall = (int)(call.getDurationDecimal() / 60) + 1;
             } else {
-                minutesCall = (int)(call.getDurationNumber() / 60);
+                minutesCall = (int)(call.getDurationDecimal() / 60);
             }
             int benefitMinutesLeft = client.getBenefitMinutesLeft();
             int benefitMinutes = Math.min(benefitMinutesLeft, minutesCall);
