@@ -1,4 +1,4 @@
-package ru.learnup.nexigntask.callscdrplus.controllers.dto.charge;
+package ru.learnup.nexigntask.callscdrplus.dto.charge;
 
 import lombok.Data;
 

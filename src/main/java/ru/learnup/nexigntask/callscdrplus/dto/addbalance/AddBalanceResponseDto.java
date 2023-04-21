@@ -1,4 +1,4 @@
-package ru.learnup.nexigntask.callscdrplus.controllers.dto.addbalance;
+package ru.learnup.nexigntask.callscdrplus.dto.addbalance;
 
 import lombok.Data;
 

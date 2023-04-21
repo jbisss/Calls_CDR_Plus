@@ -2,7 +2,8 @@ package ru.learnup.nexigntask.callscdrplus.controllers;
 
 import org.springframework.web.bind.annotation.*;
 import ru.learnup.nexigntask.callscdrplus.cache.SubscriberCache;
-import ru.learnup.nexigntask.callscdrplus.controllers.dto.newabonent.NewAbonentRequestResponseDto;
+import ru.learnup.nexigntask.callscdrplus.dto.changetariff.ChangeTariffRequestDto;
+import ru.learnup.nexigntask.callscdrplus.dto.newabonent.NewAbonentRequestResponseDto;
 import ru.learnup.nexigntask.callscdrplus.pojo.callresults.Subscriber;
 
 @RestController
@@ -26,7 +27,7 @@ public class NumberController {
     }
 
     @PatchMapping("/manager/changeTariff")
-    public void changeTariff(){
+    public void changeTariff(@RequestBody ChangeTariffRequestDto changeTariffRequestDto){
 
     }
 

@@ -1,4 +1,4 @@
-package ru.learnup.nexigntask.callscdrplus.controllers.dto.newabonent;
+package ru.learnup.nexigntask.callscdrplus.dto.newabonent;
 
 import lombok.Data;
 

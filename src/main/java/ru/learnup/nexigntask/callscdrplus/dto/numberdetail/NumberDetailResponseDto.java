@@ -1,4 +1,4 @@
-package ru.learnup.nexigntask.callscdrplus.controllers.dto.numberdetail;
+package ru.learnup.nexigntask.callscdrplus.dto.numberdetail;
 
 import lombok.Data;
 import ru.learnup.nexigntask.callscdrplus.pojo.callresults.Call;
