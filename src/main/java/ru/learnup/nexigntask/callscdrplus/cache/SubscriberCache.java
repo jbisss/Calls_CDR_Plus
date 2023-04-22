@@ -15,6 +15,7 @@ import java.util.Set;
 @Getter
 @Setter
 public class SubscriberCache {
+
     private Set<Client> cachedClients;
     private Map<String, Tariff> cachedNumberTariff;
     private HashMap<String, Subscriber> subscribers = new HashMap<>();

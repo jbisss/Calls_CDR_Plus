@@ -11,7 +11,6 @@ import lombok.Setter;
 public class Client {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
@@ -27,6 +26,18 @@ public class Client {
     @ManyToOne
     @JoinColumn(name = "tariff_id")
     private Tariff tariff;
+
+    public Client(Long id, String phoneNumber, Double balance, Integer benefitMinutesLeft, Tariff tariff) {
+        this.id = id;
+        this.phoneNumber = phoneNumber;
+        this.balance = balance;
+        this.benefitMinutesLeft = benefitMinutesLeft;
+        this.tariff = tariff;
+    }
+
+    public Client() {
+
+    }
 
     @Override
     public String toString(){

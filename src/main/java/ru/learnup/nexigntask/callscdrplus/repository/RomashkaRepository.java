@@ -13,7 +13,12 @@ public interface RomashkaRepository extends JpaRepository<Client, Long> {
     @Query("SELECT c.phoneNumber FROM Client c")
     Set<String> findAllNumbers();
 
+    Client findClientByPhoneNumber(String phoneNumber);
+
     List<Client> findAll();
+
+    @Query("SELECT MAX(c.id) FROM Client c")
+    long findMaxId();
 
     @Query("select NEW ru.learnup.nexigntask.callscdrplus.pojo.dbresults.NumberTariff(" +
             " c.phoneNumber, c.tariff) from Client as c where c.balance > 0")
@@ -21,4 +26,7 @@ public interface RomashkaRepository extends JpaRepository<Client, Long> {
 
     @Override
     <S extends Client> List<S> saveAll(Iterable<S> entities);
+
+    @Override
+    <S extends Client> S save(S entity);
 }

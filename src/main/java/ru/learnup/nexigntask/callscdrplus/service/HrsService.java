@@ -43,7 +43,7 @@ public class HrsService {
                 subscriberCache.getSubscribers().get(client.getPhoneNumber()).countCallsCost(client);
             }
         }
-        printSubscribersTotalCost();
+        // printSubscribersTotalCost();
     }
 
     private void printSubscribersTotalCost(){

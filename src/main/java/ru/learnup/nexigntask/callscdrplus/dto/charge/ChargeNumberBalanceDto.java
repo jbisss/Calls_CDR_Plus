@@ -6,5 +6,5 @@ import lombok.Data;
 public class ChargeNumberBalanceDto {
 
     private final String phoneNumber;
-    private final int balance;
+    private final double balance;
 }

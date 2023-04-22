@@ -1,9 +1,15 @@
 package ru.learnup.nexigntask.callscdrplus.dto.charge;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 public class ChargeRequestDto {
 
     private final String action;
+
+    public ChargeRequestDto(){
+        this.action = "boom";
+    }
 }

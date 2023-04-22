@@ -38,4 +38,16 @@ public class RomashkaService {
     public void saveClients(Set<Client> clients){
         repository.saveAll(clients);
     }
+
+    public void saveClient(Client client){
+        repository.save(client);
+    }
+
+    public Client getClientByPhoneNumber(String phoneNumber){
+        return repository.findClientByPhoneNumber(phoneNumber);
+    }
+
+    public long getMaxId() {
+        return repository.findMaxId();
+    }
 }
