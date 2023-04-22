@@ -36,18 +36,18 @@ public class NumberController {
     }
 
     @GetMapping("/abonent/report/{number}")
-    public Subscriber getNumberDetail(@PathVariable String number){
+    public Subscriber getNumberDetail(@PathVariable String number) {
         return subscriberCache.getSubscribers().get(number);
     }
 
     @PostMapping("/manager/abonent")
-    public NewAbonentRequestResponseDto newAbonent(@RequestBody NewAbonentRequestResponseDto newAbonentRequestResponseDto){
+    public NewAbonentRequestResponseDto newAbonent(@RequestBody NewAbonentRequestResponseDto newAbonentRequestResponseDto) {
         // System.out.println(newAbonentRequestResponseDto);
         String number = newAbonentRequestResponseDto.getNumberPhone();
         // System.out.println(number);
         Client client = romashkaRepository.findClientByPhoneNumber(number);
         // System.out.println(client);
-        if(client == null){
+        if (client == null) {
             long newId = romashkaRepository.findMaxId() + 1;
             String newNumber = newAbonentRequestResponseDto.getNumberPhone();
             double newBalance = newAbonentRequestResponseDto.getBalance();
@@ -62,10 +62,10 @@ public class NumberController {
     }
 
     @PatchMapping("/manager/changeTariff")
-    public ChangeTariffResponseDto changeTariff(@RequestBody ChangeTariffRequestDto changeTariffRequestDto){
+    public ChangeTariffResponseDto changeTariff(@RequestBody ChangeTariffRequestDto changeTariffRequestDto) {
         Client client = romashkaRepository.findClientByPhoneNumber(changeTariffRequestDto.getPhoneNumber());
         Tariff tariff = tariffRepository.findTariffByTariffId(changeTariffRequestDto.getTariffId());
-        if(client != null && !client.getTariff().getTariffId().equals(tariff.getTariffId())) {
+        if (client != null && !client.getTariff().getTariffId().equals(tariff.getTariffId())) {
             client.setBenefitMinutesLeft(tariff.getBenefitMinutes());
             client.setTariff(tariff);
             romashkaRepository.save(client);
@@ -76,10 +76,10 @@ public class NumberController {
     }
 
     @PatchMapping("/abonent/pay")
-    public AddBalanceResponseDto addBalance(@RequestBody AddBalanceRequestDto addBalanceRequestDto){
+    public AddBalanceResponseDto addBalance(@RequestBody AddBalanceRequestDto addBalanceRequestDto) {
         String number = addBalanceRequestDto.getPhoneNumber();
         Client client = romashkaRepository.findClientByPhoneNumber(number);
-        if(client != null) {
+        if (client != null) {
             client.setBalance(client.getBalance() + addBalanceRequestDto.getMoney());
             romashkaRepository.save(client);
             return new AddBalanceResponseDto(client.getId(), client.getPhoneNumber(), client.getBalance());
@@ -89,11 +89,11 @@ public class NumberController {
     }
 
     @PatchMapping("/manager/billing")
-    public ChargeResponseDto makeBilling(@RequestBody ChargeRequestDto chargeRequestDto){
-        if(chargeRequestDto.getAction().equals("run")) {
+    public ChargeResponseDto makeBilling(@RequestBody ChargeRequestDto chargeRequestDto) {
+        if (chargeRequestDto.getAction().equals("run")) {
             billingService.startBilling();
             List<ChargeNumberBalanceDto> chargeNumberBalanceDtoList = new ArrayList<>();
-            for(Client client : subscriberCache.getCachedClients()) {
+            for (Client client : subscriberCache.getCachedClients()) {
                 chargeNumberBalanceDtoList.add(new ChargeNumberBalanceDto(client.getPhoneNumber(), client.getBalance()));
             }
             return new ChargeResponseDto(chargeNumberBalanceDtoList);
