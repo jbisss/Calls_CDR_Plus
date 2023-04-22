@@ -10,6 +10,6 @@ public class ChargeRequestDto {
     private final String action;
 
     public ChargeRequestDto(){
-        this.action = "boom";
+        this.action = "";
     }
 }

@@ -7,5 +7,5 @@ public class AddBalanceResponseDto {
 
     private final long id;
     private final String numberPhone;
-    private final int money;
+    private final double money;
 }

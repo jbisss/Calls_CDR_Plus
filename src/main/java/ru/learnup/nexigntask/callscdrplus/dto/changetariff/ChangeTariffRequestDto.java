@@ -5,6 +5,6 @@ import lombok.Data;
 @Data
 public class ChangeTariffRequestDto {
 
-    private final String numberPhone;
+    private final String phoneNumber;
     private final String tariffId;
 }
