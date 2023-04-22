@@ -10,23 +10,24 @@ import java.io.*;
 public class CdrParser implements Parser {
 
     private final File cdrPlusFile;
+    private final File cdrFile;
     private final SubscriberCache subscriberCache;
 
-    public CdrParser(File cdrPlusFile, SubscriberCache subscriberCache) {
+    public CdrParser(File cdrPlusFile, File cdrFile, SubscriberCache subscriberCache) {
         this.cdrPlusFile = cdrPlusFile;
+        this.cdrFile = cdrFile;
         this.subscriberCache = subscriberCache;
     }
 
     /**
      * Парсит cdr файл, записывая информацию об абонентах в cdrPlus файл -> сdr + тариф
      *
-     * @param file CdrFile
      * @throws IOException exception
      */
     @Override
-    public void parseFile(File file) throws IOException {
+    public void parseFile() throws IOException {
         BufferedWriter writer = new BufferedWriter(new FileWriter(cdrPlusFile));
-        BufferedReader reader = new BufferedReader(new FileReader(file));
+        BufferedReader reader = new BufferedReader(new FileReader(cdrFile));
         String line = reader.readLine();
         while (line != null) {
             StringBuilder lineBuilder = new StringBuilder(line);

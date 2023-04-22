@@ -8,6 +8,9 @@ import org.hibernate.annotations.FetchMode;
 
 import java.util.List;
 
+/**
+ * Класс-сущность, представяющий записи из таблицы call_cost
+ */
 @Entity
 @Table(name = "call_cost")
 @Getter

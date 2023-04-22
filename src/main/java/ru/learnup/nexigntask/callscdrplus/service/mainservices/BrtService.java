@@ -1,25 +1,23 @@
-package ru.learnup.nexigntask.callscdrplus.service;
+package ru.learnup.nexigntask.callscdrplus.service.mainservices;
 
 import org.springframework.stereotype.Service;
 import ru.learnup.nexigntask.callscdrplus.cache.SubscriberCache;
 import ru.learnup.nexigntask.callscdrplus.parsers.CdrParser;
+import ru.learnup.nexigntask.callscdrplus.service.repservices.ClientService;
 
-import java.io.File;
 import java.io.IOException;
 
 @Service
 public class BrtService {
 
     private final CdrParser cdrParser;
-    private final RomashkaService romashkaService;
+    private final ClientService clientService;
     private final SubscriberCache subscriberCache;
-    private final File cdrFile;
 
-    public BrtService(CdrParser cdrParser, RomashkaService romashkaService, SubscriberCache subscriberCache, File cdrFile) {
+    public BrtService(CdrParser cdrParser, ClientService clientService, SubscriberCache subscriberCache) {
         this.cdrParser = cdrParser;
-        this.romashkaService = romashkaService;
+        this.clientService = clientService;
         this.subscriberCache = subscriberCache;
-        this.cdrFile = cdrFile;
     }
 
     /**
@@ -28,13 +26,16 @@ public class BrtService {
      */
     public void execute() {
         try {
-            cdrParser.parseFile(cdrFile);
+            cdrParser.parseFile();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
+    /**
+     * Заносим из сформированного кеша данные о всех клиентах в базу данных
+     */
     public void updateDatabase(){
-        romashkaService.saveClients(subscriberCache.getCachedClients());
+        clientService.saveClients(subscriberCache.getCachedClients());
     }
 }

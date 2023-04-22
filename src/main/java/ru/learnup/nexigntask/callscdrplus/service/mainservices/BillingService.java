@@ -1,4 +1,4 @@
-package ru.learnup.nexigntask.callscdrplus.service;
+package ru.learnup.nexigntask.callscdrplus.service.mainservices;
 
 import org.springframework.stereotype.Service;
 
@@ -15,6 +15,10 @@ public class BillingService {
         this.hrsService = hrsService;
     }
 
+    /**
+     * Производит тарификацию
+     * Здесь задействованы все основные сервисы - cdr, brt, hrs
+     */
     public void startBilling(){
         // Executing CDR Service
         cdrService.execute();

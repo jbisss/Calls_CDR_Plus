@@ -7,17 +7,24 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
 
-import java.util.Arrays;
-
 @Component
 @Aspect
 @Slf4j
 public class TimeMeasurer {
 
+    /**
+     * Определяем поинткат - метод execute() в основных сервисах
+     */
     @Pointcut(value = "execution(* ru.learnup.nexigntask.callscdrplus.service.*.execute(..))")
-    private void generatorCdrServiceClassMethods() {}
+    private void mainServicesExecuteMethod() {}
 
-    @Around("generatorCdrServiceClassMethods()")
+    /**
+     * Выводим информацию о времени работы методов execute()
+     *
+     * @param pjp ссылка на исполняемый метод
+     * @return результат работы исполняемого метода
+     */
+    @Around("mainServicesExecuteMethod()")
     public Object measureMethodTime(ProceedingJoinPoint pjp){
         long startTime = System.currentTimeMillis();
         Object result;

@@ -5,6 +5,9 @@ import ru.learnup.nexigntask.callscdrplus.pojo.callresults.Call;
 
 import java.util.ArrayList;
 
+/**
+ * Dto класс, отправялет данные о клиенте
+ */
 @Data
 public class NumberDetailResponseDto {
 

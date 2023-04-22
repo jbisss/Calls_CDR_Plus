@@ -13,9 +13,9 @@ import ru.learnup.nexigntask.callscdrplus.dto.newabonent.NewAbonentRequestRespon
 import ru.learnup.nexigntask.callscdrplus.entity.Client;
 import ru.learnup.nexigntask.callscdrplus.entity.Tariff;
 import ru.learnup.nexigntask.callscdrplus.pojo.callresults.Subscriber;
-import ru.learnup.nexigntask.callscdrplus.repository.RomashkaRepository;
-import ru.learnup.nexigntask.callscdrplus.repository.TariffRepository;
-import ru.learnup.nexigntask.callscdrplus.service.BillingService;
+import ru.learnup.nexigntask.callscdrplus.service.mainservices.BillingService;
+import ru.learnup.nexigntask.callscdrplus.service.repservices.ClientService;
+import ru.learnup.nexigntask.callscdrplus.service.repservices.TariffService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,14 +24,14 @@ import java.util.List;
 public class NumberController {
 
     private final SubscriberCache subscriberCache;
-    private final RomashkaRepository romashkaRepository;
-    private final TariffRepository tariffRepository;
+    private final ClientService clientService;
+    private final TariffService tariffService;
     private final BillingService billingService;
 
-    public NumberController(SubscriberCache subscriberCache, RomashkaRepository romashkaRepository, TariffRepository tariffRepository, BillingService billingService) {
+    public NumberController(SubscriberCache subscriberCache, ClientService clientService, TariffService tariffService, BillingService billingService) {
         this.subscriberCache = subscriberCache;
-        this.romashkaRepository = romashkaRepository;
-        this.tariffRepository = tariffRepository;
+        this.clientService = clientService;
+        this.tariffService = tariffService;
         this.billingService = billingService;
     }
 
@@ -42,19 +42,16 @@ public class NumberController {
 
     @PostMapping("/manager/abonent")
     public NewAbonentRequestResponseDto newAbonent(@RequestBody NewAbonentRequestResponseDto newAbonentRequestResponseDto) {
-        // System.out.println(newAbonentRequestResponseDto);
         String number = newAbonentRequestResponseDto.getNumberPhone();
-        // System.out.println(number);
-        Client client = romashkaRepository.findClientByPhoneNumber(number);
-        // System.out.println(client);
+        Client client = clientService.getClientByPhoneNumber(number);
         if (client == null) {
-            long newId = romashkaRepository.findMaxId() + 1;
+            long newId = clientService.getMaxId() + 1;
             String newNumber = newAbonentRequestResponseDto.getNumberPhone();
             double newBalance = newAbonentRequestResponseDto.getBalance();
-            Tariff newTariff = tariffRepository.findTariffByTariffId(newAbonentRequestResponseDto.getTariffId());
+            Tariff newTariff = tariffService.getTariffById(newAbonentRequestResponseDto.getTariffId());
             int newBenefitMinutesLeft = newTariff.getBenefitMinutes();
             Client newClient = new Client(newId, newNumber, newBalance, newBenefitMinutesLeft, newTariff);
-            romashkaRepository.save(newClient);
+            clientService.saveClient(newClient);
             return newAbonentRequestResponseDto;
         }
         // добавить выброс ошибки!
@@ -63,12 +60,12 @@ public class NumberController {
 
     @PatchMapping("/manager/changeTariff")
     public ChangeTariffResponseDto changeTariff(@RequestBody ChangeTariffRequestDto changeTariffRequestDto) {
-        Client client = romashkaRepository.findClientByPhoneNumber(changeTariffRequestDto.getPhoneNumber());
-        Tariff tariff = tariffRepository.findTariffByTariffId(changeTariffRequestDto.getTariffId());
+        Client client = clientService.getClientByPhoneNumber(changeTariffRequestDto.getPhoneNumber());
+        Tariff tariff = tariffService.getTariffById(changeTariffRequestDto.getTariffId());
         if (client != null && !client.getTariff().getTariffId().equals(tariff.getTariffId())) {
             client.setBenefitMinutesLeft(tariff.getBenefitMinutes());
             client.setTariff(tariff);
-            romashkaRepository.save(client);
+            clientService.saveClient(client);
             return new ChangeTariffResponseDto(client.getId(), client.getPhoneNumber(), client.getTariff().getTariffId());
         }
         // добавить выброс ошибки!
@@ -78,10 +75,10 @@ public class NumberController {
     @PatchMapping("/abonent/pay")
     public AddBalanceResponseDto addBalance(@RequestBody AddBalanceRequestDto addBalanceRequestDto) {
         String number = addBalanceRequestDto.getPhoneNumber();
-        Client client = romashkaRepository.findClientByPhoneNumber(number);
+        Client client = clientService.getClientByPhoneNumber(number);
         if (client != null) {
             client.setBalance(client.getBalance() + addBalanceRequestDto.getMoney());
-            romashkaRepository.save(client);
+            clientService.saveClient(client);
             return new AddBalanceResponseDto(client.getId(), client.getPhoneNumber(), client.getBalance());
         }
         // добавить выброс ошибки!

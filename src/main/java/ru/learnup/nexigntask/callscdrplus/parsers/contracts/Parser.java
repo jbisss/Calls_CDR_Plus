@@ -5,5 +5,11 @@ import java.io.IOException;
 
 public interface Parser {
 
-    void parseFile(File file) throws IOException;
+    /**
+     * Парсер должен...
+     * парсить
+     *
+     * @throws IOException для File
+     */
+    void parseFile() throws IOException;
 }

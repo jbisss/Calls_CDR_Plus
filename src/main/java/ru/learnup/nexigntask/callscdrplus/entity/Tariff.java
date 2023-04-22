@@ -8,6 +8,9 @@ import org.hibernate.annotations.FetchMode;
 
 import java.util.List;
 
+/**
+ * Класс-сущность, представляющий данные из таблицы tariff
+ */
 @Entity
 @Table(name = "tariff")
 @Getter

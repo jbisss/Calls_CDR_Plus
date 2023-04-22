@@ -11,6 +11,11 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 public class SecurityConfig {
 
+    /**
+     * Разграничение прав, выделяем два типа пользователей - abonent и manager
+     *
+     * @return данные о правах пользователей, хранящиеся внутри программы
+     */
     @Bean
     public InMemoryUserDetailsManager userDetailsService(){
         UserDetails abonent = User.withDefaultPasswordEncoder()
@@ -26,6 +31,13 @@ public class SecurityConfig {
         return new InMemoryUserDetailsManager(abonent, manager);
     }
 
+    /**
+     * Определяем какие url доступны ролям abonent и manager
+     *
+     * @param http httpSecurity
+     * @return данные о "области видимости" http-запросов по ролям
+     * @throws Exception exception
+     */
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
         http.httpBasic()

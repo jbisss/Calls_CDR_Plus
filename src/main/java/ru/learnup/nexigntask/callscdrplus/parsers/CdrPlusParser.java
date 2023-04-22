@@ -14,24 +14,27 @@ import java.io.IOException;
 public class CdrPlusParser implements Parser {
 
     private final SubscriberCache subscriberCache;
+    private final File cdrPlusFile;
 
-    public CdrPlusParser(SubscriberCache subscriberCache) {
+    public CdrPlusParser(SubscriberCache subscriberCache, File cdrPlusFile) {
         this.subscriberCache = subscriberCache;
+        this.cdrPlusFile = cdrPlusFile;
     }
 
     /**
      * Парсит cdrPlus файл, заносит в кэш информацию об абонентах, представленныз в файле
      *
-     * @param file CdrPlusFile
      * @throws IOException exception
      */
     @Override
-    public void parseFile(File file) throws IOException {
-        BufferedReader reader = new BufferedReader(new FileReader(file));
+    public void parseFile() throws IOException {
+        BufferedReader reader = new BufferedReader(new FileReader(cdrPlusFile));
         String line = reader.readLine();
         while (line != null) {
             line = line.replaceAll(" ", "");
             String[] tokens = line.split(",");
+            // если абонент существует в кэше - добавляем ему звонок
+            // иначе создаём нового абонента и передаём звонок ему
             if (subscriberCache.getSubscribers().containsKey(tokens[1])) {
                 subscriberCache.getSubscribers().get(tokens[1]).addCall(tokens[0], tokens[2], tokens[3]);
             } else {

@@ -1,4 +1,4 @@
-package ru.learnup.nexigntask.callscdrplus.service;
+package ru.learnup.nexigntask.callscdrplus.service.repservices;
 
 import org.springframework.stereotype.Service;
 import ru.learnup.nexigntask.callscdrplus.entity.Tariff;
@@ -13,6 +13,12 @@ public class TariffService {
         this.tariffRepository = tariffRepository;
     }
 
+    /**
+     * Получаем тариф по его id
+     *
+     * @param tariffId id тарифа
+     * @return тариф
+     */
     public Tariff getTariffById(String tariffId){
         return tariffRepository.findTariffByTariffId(tariffId);
     }

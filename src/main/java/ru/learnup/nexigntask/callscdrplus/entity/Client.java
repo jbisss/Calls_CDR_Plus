@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * Класс-сущность, представляющий данные из таблицы clients
+ */
 @Entity
 @Table(name = "clients")
 @Getter

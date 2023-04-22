@@ -1,10 +1,10 @@
-package ru.learnup.nexigntask.callscdrplus.service;
+package ru.learnup.nexigntask.callscdrplus.service.repservices;
 
 import org.springframework.stereotype.Service;
 import ru.learnup.nexigntask.callscdrplus.entity.Client;
 import ru.learnup.nexigntask.callscdrplus.entity.Tariff;
-import ru.learnup.nexigntask.callscdrplus.pojo.dbresults.NumberTariff;
-import ru.learnup.nexigntask.callscdrplus.repository.RomashkaRepository;
+import ru.learnup.nexigntask.callscdrplus.pojo.dao.NumberTariff;
+import ru.learnup.nexigntask.callscdrplus.repository.ClientRepository;
 
 import java.util.HashSet;
 import java.util.List;
@@ -13,11 +13,11 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
-public class RomashkaService {
+public class ClientService {
 
-    private final RomashkaRepository repository;
+    private final ClientRepository repository;
 
-    public RomashkaService(RomashkaRepository repository) {
+    public ClientService(ClientRepository repository) {
         this.repository = repository;
     }
 

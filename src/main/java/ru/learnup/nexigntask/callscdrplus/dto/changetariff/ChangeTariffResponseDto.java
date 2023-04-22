@@ -2,6 +2,9 @@ package ru.learnup.nexigntask.callscdrplus.dto.changetariff;
 
 import lombok.Data;
 
+/**
+ * Dto класс, отправляет данные в ответ на запрос о смене тарифа
+ */
 @Data
 public class ChangeTariffResponseDto {
 
