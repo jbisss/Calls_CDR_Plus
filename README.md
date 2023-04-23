@@ -43,7 +43,7 @@
 
 ---
 
-Пакетная структура программы:
+**Пакетная структура программы:**
 
 - [ru.learnup.nexigntask.callscdrplus](https://github.com/jbisss/Calls_CDR_Plus/tree/master/src/main/java/ru/learnup/nexigntask/callscdrplus)
 
@@ -142,6 +142,12 @@
       - [*class TariffService.java*](https://github.com/jbisss/Calls_CDR_Plus/blob/master/src/main/java/ru/learnup/nexigntask/callscdrplus/service/repservices/TariffService.java)
 
   - [*class CallsCdrPlusApplication.java*](https://github.com/jbisss/Calls_CDR_Plus/blob/master/src/main/java/ru/learnup/nexigntask/callscdrplus/CallsCdrPlusApplication.java)
+
+**Работа программы:**
+
+Примеры [cdr](https://github.com/jbisss/Calls_CDR_Plus/blob/master/src/main/resources/static/cdr.txt) и [cdr+](https://github.com/jbisss/Calls_CDR_Plus/blob/master/src/main/resources/static/cdrplus.txt) файлов.
+
+**http-запросы к серверу:**
 
 Запросы к серверу я производил с помощью Postman'a, поэтому в настройках безопасности у меня отключена форма для входа.
 
