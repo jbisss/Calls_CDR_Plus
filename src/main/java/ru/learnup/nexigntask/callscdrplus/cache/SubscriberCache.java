@@ -3,8 +3,8 @@ package ru.learnup.nexigntask.callscdrplus.cache;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.stereotype.Component;
-import ru.learnup.nexigntask.callscdrplus.entities.Client;
-import ru.learnup.nexigntask.callscdrplus.entities.Tariff;
+import ru.learnup.nexigntask.callscdrplus.entity.Client;
+import ru.learnup.nexigntask.callscdrplus.entity.Tariff;
 import ru.learnup.nexigntask.callscdrplus.dto.getnumberdetails.Subscriber;
 
 import java.util.HashMap;

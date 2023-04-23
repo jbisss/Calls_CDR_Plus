@@ -3,8 +3,8 @@ package ru.learnup.nexigntask.callscdrplus;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
-import ru.learnup.nexigntask.callscdrplus.services.mainservices.BillingService;
-import ru.learnup.nexigntask.callscdrplus.services.mainservices.CacheService;
+import ru.learnup.nexigntask.callscdrplus.service.mainservices.BillingService;
+import ru.learnup.nexigntask.callscdrplus.service.mainservices.CacheService;
 
 @SpringBootApplication
 public class CallsCdrPlusApplication {

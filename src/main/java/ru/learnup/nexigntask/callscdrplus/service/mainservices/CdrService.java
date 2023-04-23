@@ -1,10 +1,10 @@
-package ru.learnup.nexigntask.callscdrplus.services.mainservices;
+package ru.learnup.nexigntask.callscdrplus.service.mainservices;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import ru.learnup.nexigntask.callscdrplus.enums.CallCode;
 import ru.learnup.nexigntask.callscdrplus.dto.getnumberdetails.Call;
-import ru.learnup.nexigntask.callscdrplus.services.repservices.ClientService;
+import ru.learnup.nexigntask.callscdrplus.service.repservices.ClientService;
 
 import java.io.File;
 import java.io.BufferedWriter;

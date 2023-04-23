@@ -1,8 +1,8 @@
-package ru.learnup.nexigntask.callscdrplus.services.mainservices;
+package ru.learnup.nexigntask.callscdrplus.service.mainservices;
 
 import org.springframework.stereotype.Service;
 import ru.learnup.nexigntask.callscdrplus.cache.SubscriberCache;
-import ru.learnup.nexigntask.callscdrplus.services.repservices.ClientService;
+import ru.learnup.nexigntask.callscdrplus.service.repservices.ClientService;
 
 @Service
 public class CacheService {

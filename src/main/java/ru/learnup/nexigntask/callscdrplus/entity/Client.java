@@ -1,4 +1,4 @@
-package ru.learnup.nexigntask.callscdrplus.entities;
+package ru.learnup.nexigntask.callscdrplus.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;

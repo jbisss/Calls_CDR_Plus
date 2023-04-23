@@ -1,7 +1,7 @@
 package ru.learnup.nexigntask.callscdrplus.dto.getnumberdetails;
 
 import lombok.Getter;
-import ru.learnup.nexigntask.callscdrplus.entities.Client;
+import ru.learnup.nexigntask.callscdrplus.entity.Client;
 import ru.learnup.nexigntask.callscdrplus.enums.CallCode;
 
 import java.util.ArrayList;

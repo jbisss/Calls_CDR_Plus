@@ -1,15 +1,18 @@
-package ru.learnup.nexigntask.callscdrplus.services.mainservices;
+package ru.learnup.nexigntask.callscdrplus.service.mainservices;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import ru.learnup.nexigntask.callscdrplus.cache.SubscriberCache;
-import ru.learnup.nexigntask.callscdrplus.entities.Client;
+import ru.learnup.nexigntask.callscdrplus.dto.getnumberdetails.Subscriber;
+import ru.learnup.nexigntask.callscdrplus.entity.Client;
 import ru.learnup.nexigntask.callscdrplus.parsers.CdrPlusParser;
-import ru.learnup.nexigntask.callscdrplus.entities.Tariff;
+import ru.learnup.nexigntask.callscdrplus.entity.Tariff;
 
 import java.io.IOException;
 import java.util.Map;
 import java.util.Set;
 
+@Slf4j
 @Service
 public class HrsService {
 
@@ -25,7 +28,7 @@ public class HrsService {
      * Executes HRS Service.
      * Итогом работы данного сервиса является тарификация абонентов.
      */
-    public void execute(){
+    public void execute() {
         try {
             cdrPlusParser.parseFile();
         } catch (IOException e) {
@@ -34,12 +37,18 @@ public class HrsService {
 
         Map<String, Tariff> numberTariff = subscriberCache.getCachedNumberTariff();
         Set<Client> clients = subscriberCache.getCachedClients();
+        Map<String, Subscriber> subs = subscriberCache.getSubscribers();
 
-        for(Client client : clients) {
-            if(numberTariff.containsKey(client.getPhoneNumber())
-                    && subscriberCache.getSubscribers().containsKey(client.getPhoneNumber())) {
-                subscriberCache.getSubscribers().get(client.getPhoneNumber()).countCallsCost(client);
+        for (Client client : clients) {
+            if (numberTariff.containsKey(client.getPhoneNumber()) && subs.containsKey(client.getPhoneNumber())) {
+                subs.get(client.getPhoneNumber()).countCallsCost(client);
             }
         }
+
+        printSubscribersNumbers(subs);
+    }
+
+    public void printSubscribersNumbers(Map<String, Subscriber> subs) {
+        subs.forEach((number, sub) -> log.info(number));
     }
 }

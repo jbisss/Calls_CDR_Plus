@@ -1,8 +1,8 @@
-package ru.learnup.nexigntask.callscdrplus.repositories;
+package ru.learnup.nexigntask.callscdrplus.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import ru.learnup.nexigntask.callscdrplus.entities.Client;
+import ru.learnup.nexigntask.callscdrplus.entity.Client;
 import ru.learnup.nexigntask.callscdrplus.dao.NumberTariff;
 
 import java.util.List;

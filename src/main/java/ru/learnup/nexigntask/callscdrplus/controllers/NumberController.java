@@ -17,12 +17,12 @@ import ru.learnup.nexigntask.callscdrplus.dto.charge.ChargeNumberBalanceDto;
 import ru.learnup.nexigntask.callscdrplus.dto.charge.ChargeRequestDto;
 import ru.learnup.nexigntask.callscdrplus.dto.charge.ChargeResponseDto;
 import ru.learnup.nexigntask.callscdrplus.dto.newabonent.NewAbonentRequestResponseDto;
-import ru.learnup.nexigntask.callscdrplus.entities.Client;
-import ru.learnup.nexigntask.callscdrplus.entities.Tariff;
+import ru.learnup.nexigntask.callscdrplus.entity.Client;
+import ru.learnup.nexigntask.callscdrplus.entity.Tariff;
 import ru.learnup.nexigntask.callscdrplus.dto.getnumberdetails.Subscriber;
-import ru.learnup.nexigntask.callscdrplus.services.mainservices.BillingService;
-import ru.learnup.nexigntask.callscdrplus.services.repservices.ClientService;
-import ru.learnup.nexigntask.callscdrplus.services.repservices.TariffService;
+import ru.learnup.nexigntask.callscdrplus.service.mainservices.BillingService;
+import ru.learnup.nexigntask.callscdrplus.service.repservices.ClientService;
+import ru.learnup.nexigntask.callscdrplus.service.repservices.TariffService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,8 +51,12 @@ public class NumberController {
     @GetMapping("/abonent/report/{number}")
     public Subscriber getNumberDetails(@PathVariable String number) {
         Subscriber sub = subscriberCache.getSubscribers().get(number);
-        if (sub == null) {
+        Client client = clientService.getClientByPhoneNumber(number);
+        if(client == null){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Abonent with a such number is not found!");
+        }
+        if (sub == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "There are no calls for this abonent!");
         }
         return sub;
     }
