@@ -1,10 +1,10 @@
-package ru.learnup.nexigntask.callscdrplus.service.mainservices;
+package ru.learnup.nexigntask.callscdrplus.services.mainservices;
 
 import org.springframework.stereotype.Service;
 import ru.learnup.nexigntask.callscdrplus.cache.SubscriberCache;
-import ru.learnup.nexigntask.callscdrplus.entity.Client;
+import ru.learnup.nexigntask.callscdrplus.entities.Client;
 import ru.learnup.nexigntask.callscdrplus.parsers.CdrPlusParser;
-import ru.learnup.nexigntask.callscdrplus.entity.Tariff;
+import ru.learnup.nexigntask.callscdrplus.entities.Tariff;
 
 import java.io.IOException;
 import java.util.Map;

@@ -1,4 +1,4 @@
-package ru.learnup.nexigntask.callscdrplus.aspect;
+package ru.learnup.nexigntask.callscdrplus.aspects;
 
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -15,7 +15,7 @@ public class TimeMeasurer {
     /**
      * Определяем поинткат - метод execute() в основных сервисах
      */
-    @Pointcut(value = "execution(* ru.learnup.nexigntask.callscdrplus.service.*.execute(..))")
+    @Pointcut(value = "execution(* ru.learnup.nexigntask.callscdrplus.services.*.execute(..))")
     private void mainServicesExecuteMethod() {}
 
     /**

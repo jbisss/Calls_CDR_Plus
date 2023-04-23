@@ -1,10 +1,10 @@
-package ru.learnup.nexigntask.callscdrplus.service.repservices;
+package ru.learnup.nexigntask.callscdrplus.services.repservices;
 
 import org.springframework.stereotype.Service;
-import ru.learnup.nexigntask.callscdrplus.entity.Client;
-import ru.learnup.nexigntask.callscdrplus.entity.Tariff;
-import ru.learnup.nexigntask.callscdrplus.pojo.dao.NumberTariff;
-import ru.learnup.nexigntask.callscdrplus.repository.ClientRepository;
+import ru.learnup.nexigntask.callscdrplus.entities.Client;
+import ru.learnup.nexigntask.callscdrplus.entities.Tariff;
+import ru.learnup.nexigntask.callscdrplus.dao.NumberTariff;
+import ru.learnup.nexigntask.callscdrplus.repositories.ClientRepository;
 
 import java.util.HashSet;
 import java.util.List;

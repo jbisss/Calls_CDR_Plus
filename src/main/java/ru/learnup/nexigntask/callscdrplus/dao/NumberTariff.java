@@ -1,7 +1,7 @@
-package ru.learnup.nexigntask.callscdrplus.pojo.dao;
+package ru.learnup.nexigntask.callscdrplus.dao;
 
 import lombok.Data;
-import ru.learnup.nexigntask.callscdrplus.entity.Tariff;
+import ru.learnup.nexigntask.callscdrplus.entities.Tariff;
 
 @Data
 public class NumberTariff {

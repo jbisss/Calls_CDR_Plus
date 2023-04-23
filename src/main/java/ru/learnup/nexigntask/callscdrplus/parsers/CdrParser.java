@@ -4,7 +4,12 @@ import org.springframework.stereotype.Component;
 import ru.learnup.nexigntask.callscdrplus.cache.SubscriberCache;
 import ru.learnup.nexigntask.callscdrplus.parsers.contracts.Parser;
 
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
 
 @Component
 public class CdrParser implements Parser {

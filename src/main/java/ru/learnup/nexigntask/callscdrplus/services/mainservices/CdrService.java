@@ -1,18 +1,28 @@
-package ru.learnup.nexigntask.callscdrplus.service.mainservices;
+package ru.learnup.nexigntask.callscdrplus.services.mainservices;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import ru.learnup.nexigntask.callscdrplus.pojo.enums.CallCode;
-import ru.learnup.nexigntask.callscdrplus.pojo.callresults.Call;
-import ru.learnup.nexigntask.callscdrplus.service.repservices.ClientService;
+import ru.learnup.nexigntask.callscdrplus.enums.CallCode;
+import ru.learnup.nexigntask.callscdrplus.dto.getnumberdetails.Call;
+import ru.learnup.nexigntask.callscdrplus.services.repservices.ClientService;
 
-import java.io.*;
+import java.io.File;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
-import java.util.*;
+import java.util.Queue;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.Set;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Random;
+import java.util.LinkedList;
 
 @Service
 @Slf4j

@@ -1,4 +1,4 @@
-package ru.learnup.nexigntask.callscdrplus.service;
+package ru.learnup.nexigntask.callscdrplus.services;
 
 import org.springframework.stereotype.Component;
 

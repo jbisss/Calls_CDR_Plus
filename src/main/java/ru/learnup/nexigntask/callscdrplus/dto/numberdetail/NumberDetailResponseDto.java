@@ -1,7 +1,7 @@
 package ru.learnup.nexigntask.callscdrplus.dto.numberdetail;
 
 import lombok.Data;
-import ru.learnup.nexigntask.callscdrplus.pojo.callresults.Call;
+import ru.learnup.nexigntask.callscdrplus.dto.getnumberdetails.Call;
 
 import java.util.ArrayList;
 

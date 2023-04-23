@@ -1,12 +1,11 @@
-package ru.learnup.nexigntask.callscdrplus.pojo.callresults;
+package ru.learnup.nexigntask.callscdrplus.dto.getnumberdetails;
 
 import lombok.Getter;
-import ru.learnup.nexigntask.callscdrplus.entity.Client;
-import ru.learnup.nexigntask.callscdrplus.pojo.enums.CallCode;
+import ru.learnup.nexigntask.callscdrplus.entities.Client;
+import ru.learnup.nexigntask.callscdrplus.enums.CallCode;
 
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -80,13 +79,6 @@ public class Subscriber {
      */
     public String getNumber() {
         return number;
-    }
-
-    /**
-     * @return total cost of calls
-     */
-    public double getTotalCost() {
-        return totalCost;
     }
 
     /**

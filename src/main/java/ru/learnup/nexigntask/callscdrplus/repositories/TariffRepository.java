@@ -1,7 +1,7 @@
-package ru.learnup.nexigntask.callscdrplus.repository;
+package ru.learnup.nexigntask.callscdrplus.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import ru.learnup.nexigntask.callscdrplus.entity.Tariff;
+import ru.learnup.nexigntask.callscdrplus.entities.Tariff;
 
 public interface TariffRepository extends JpaRepository<Tariff, String> {
 

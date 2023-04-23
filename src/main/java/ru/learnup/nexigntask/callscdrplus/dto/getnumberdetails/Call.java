@@ -1,9 +1,9 @@
-package ru.learnup.nexigntask.callscdrplus.pojo.callresults;
+package ru.learnup.nexigntask.callscdrplus.dto.getnumberdetails;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
-import ru.learnup.nexigntask.callscdrplus.pojo.enums.CallCode;
+import ru.learnup.nexigntask.callscdrplus.enums.CallCode;
 
 import java.text.DateFormat;
 import java.text.ParseException;

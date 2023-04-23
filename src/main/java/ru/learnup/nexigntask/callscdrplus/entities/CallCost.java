@@ -1,4 +1,4 @@
-package ru.learnup.nexigntask.callscdrplus.entity;
+package ru.learnup.nexigntask.callscdrplus.entities;
 
 import jakarta.persistence.*;
 import lombok.Getter;

@@ -1,4 +1,4 @@
-package ru.learnup.nexigntask.callscdrplus.config;
+package ru.learnup.nexigntask.callscdrplus.configs;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
