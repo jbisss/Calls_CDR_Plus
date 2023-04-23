@@ -98,7 +98,7 @@ public class NumberController {
         if (client == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Abonent with a such number doesn't exist!");
         }
-        if (!client.getTariff().getTariffId().equals(tariff.getTariffId())) {
+        if (client.getTariff().getTariffId().equals(tariff.getTariffId())) {
             throw new ResponseStatusException(HttpStatus.MULTI_STATUS, "Abonent already has this tariff!");
         }
         client.setBenefitMinutesLeft(tariff.getBenefitMinutes());
