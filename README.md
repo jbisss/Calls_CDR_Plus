@@ -143,4 +143,189 @@
 
   - [*class CallsCdrPlusApplication.java*](https://github.com/jbisss/Calls_CDR_Plus/blob/master/src/main/java/ru/learnup/nexigntask/callscdrplus/CallsCdrPlusApplication.java)
 
+Запросы к серверу я производил с помощью Postman'a, поэтому в настройках безопасности у меня отключена форма для входа.
+
+Аунтефикация производилась в постмане через спецаильную вкладку, предназначенную для этого.
+
+В программе присутствуют две роли *ABONENT* и *MANAGER*, **'логин'** **'пароль'** для этих ролей - **'abonent' 'abonent'** и **'manager' 'manager'** соответственно.
+
+Примеры запросов обрабатываемых контроллером:
+
+**Add abonent:**
+
+POST - запрос - <http://localhost:7777/manager/abonent>
+
+Request body
+
+```JSON
+{
+    "numberPhone": "71231233214",
+    "tariffId": "11",
+    "balance": 10000
+}
+```
+
+Response body
+
+```JSON
+{
+    "numberPhone": "71231233214",
+    "tariffId": "11",
+    "balance": 10000
+}
+```
+
+**Billing:**
+
+PATCH - запрос - <http://localhost:7777/manager/billing>
+
+Request body
+
+```JSON
+{
+    "action": "run"
+}
+```
+
+Response body
+
+```JSON
+{
+    "numbers": [
+        {
+            "phoneNumber": "76942768614",
+            "balance": 7900.0
+        },
+        {
+            "phoneNumber": "79747692391",
+            "balance": 6396.0
+        },
+        {
+            "phoneNumber": "79759828487",
+            "balance": 7216.0
+        },
+        {
+            "phoneNumber": "79812441851",
+            "balance": 8271.5
+        },
+        {
+            "phoneNumber": "71137382151",
+            "balance": 6163.0
+        },
+        {
+            "phoneNumber": "79583781116",
+            "balance": 6004.0
+        },
+        {
+            "phoneNumber": "79621217217",
+            "balance": 7433.0
+        },
+        ...
+
+```
+
+**Add balance:**
+
+PATCH - запрос - <http://localhost:7777/abonent/pay>
+
+Request body
+
+```JSON
+{
+    "phoneNumber": "75055053709",
+    "money": 4000
+}
+```
+
+Response body
+
+```JSON
+{
+    "id": 425,
+    "numberPhone": "75055053709",
+    "money": 7213.0
+}
+```
+
+**Change tariff:**
+
+PATCH - запрос - <http://localhost:7777/manager/changeTariff>
+
+Request body
+
+```JSON
+{
+    "phoneNumber": "79255453629",
+    "tariffId": "06"
+}
+```
+
+Response body
+
+```JSON
+{
+    "id": 179,
+    "numberPhone": "79255453629",
+    "tariffId": "06"
+}
+```
+
+**Number detail:**
+
+GET - запрос - <http://localhost:7777/abonent/report/{number}>
+
+Response body
+
+```JSON
+{
+    "number": "79333867081",
+    "tariff": "06",
+    "calls": [
+        {
+            "callCode": "CALL_IN",
+            "startTime": "2022-12-18 15:58:48",
+            "endTime": "2022-12-18 16:23:51",
+            "duration": "00:25:03",
+            "cost": 0.0
+        },
+        {
+            "callCode": "CALL_OUT",
+            "startTime": "2023-01-14 00:04:33",
+            "endTime": "2023-01-14 00:44:34",
+            "duration": "00:40:01",
+            "cost": 4.0
+        },
+        {
+            "callCode": "CALL_IN",
+            "startTime": "2023-01-25 13:15:04",
+            "endTime": "2023-01-25 13:56:41",
+            "duration": "00:41:37",
+            "cost": 42.0
+        },
+        {
+            "callCode": "CALL_IN",
+            "startTime": "2023-03-05 11:44:07",
+            "endTime": "2023-03-05 12:20:35",
+            "duration": "00:36:28",
+            "cost": 37.0
+        },
+        {
+            "callCode": "CALL_IN",
+            "startTime": "2023-03-13 06:57:47",
+            "endTime": "2023-03-13 07:33:56",
+            "duration": "00:36:09",
+            "cost": 37.0
+        },
+        {
+            "callCode": "CALL_OUT",
+            "startTime": "2023-03-18 04:07:42",
+            "endTime": "2023-03-18 04:08:31",
+            "duration": "00:00:49",
+            "cost": 1.0
+        }
+    ],
+    "totalCost": 221.0
+}
+```
+
 ---
