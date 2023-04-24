@@ -28,14 +28,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-public class NumberController {
+public class CrmController {
 
     private final SubscriberCache subscriberCache;
     private final ClientService clientService;
     private final TariffService tariffService;
     private final BillingService billingService;
 
-    public NumberController(SubscriberCache subscriberCache, ClientService clientService, TariffService tariffService, BillingService billingService) {
+    public CrmController(SubscriberCache subscriberCache, ClientService clientService, TariffService tariffService, BillingService billingService) {
         this.subscriberCache = subscriberCache;
         this.clientService = clientService;
         this.tariffService = tariffService;
