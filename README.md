@@ -61,7 +61,7 @@
 
   - [controllers](https://github.com/jbisss/Calls_CDR_Plus/tree/master/src/main/java/ru/learnup/nexigntask/callscdrplus/controllers)
 
-    - [*class NumberController.java*](https://github.com/jbisss/Calls_CDR_Plus/blob/master/src/main/java/ru/learnup/nexigntask/callscdrplus/controllers/NumberController.java)
+    - [*class CrmController.java*](https://github.com/jbisss/Calls_CDR_Plus/blob/master/src/main/java/ru/learnup/nexigntask/callscdrplus/controllers/CrmController.java)
 
   - [dao](https://github.com/jbisss/Calls_CDR_Plus/tree/master/src/main/java/ru/learnup/nexigntask/callscdrplus/dao)
 
