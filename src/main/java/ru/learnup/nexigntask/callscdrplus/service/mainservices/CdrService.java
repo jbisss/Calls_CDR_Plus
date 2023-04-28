@@ -123,11 +123,11 @@ public class CdrService {
         }
         // если flag == 1 - генерируем звонки для номеров из базы
         // если flag == 2 - генерируем звонки для случайно сгенерированного номера
-        int flag;
+        byte flag;
         int randomCallsAmount;
         int j = 0;
         for (String number : romashkaNumbers) {
-            flag = new Random().nextInt(3);
+            flag = (byte) new Random().nextInt(3);
             // случайно выбираем количество звонков
             randomCallsAmount = 3 + new Random().nextInt(12);
             if (flag == 1) {

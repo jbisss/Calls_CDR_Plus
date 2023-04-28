@@ -14,7 +14,7 @@ public class Subscriber {
 
     private final String number;
     private String tariff;
-    private final ArrayList<Call> calls = new ArrayList<>();
+    private final List<Call> calls = new ArrayList<>();
     private double totalCost;
 
     public Subscriber(String number) {
