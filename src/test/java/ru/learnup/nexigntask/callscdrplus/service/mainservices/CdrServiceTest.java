@@ -29,12 +29,21 @@ public class CdrServiceTest {
         Assertions.assertEquals(11, generateNumber().length());
     }
 
+    /**
+     * Генерация типа звонка
+     */
     @Test
     public void testCallCodeGeneration() {
         CallCode resultCallCode = generateCallCode();
         assertThat(resultCallCode, anyOf(is(CallCode.CALL_IN), is(CallCode.CALL_OUT)));
     }
 
+    /**
+     * Возвращает тип вызова (входящий, исходящий), случайно генерирующийся
+     * методом CdrService
+     *
+     * @return call type
+     */
     private CallCode generateCallCode() {
         Method generateCallCode;
         try {
@@ -52,6 +61,12 @@ public class CdrServiceTest {
         return callCode;
     }
 
+    /**
+     * Возвращает номер телефона (входящий, исходящий), случайно генерирующийся
+     * методом CdrService
+     *
+     * @return phone number
+     */
     private String generateNumber() {
         Method generateNumber;
         try {
