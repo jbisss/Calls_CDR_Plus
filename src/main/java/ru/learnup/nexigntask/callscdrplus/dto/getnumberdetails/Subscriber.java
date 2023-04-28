@@ -9,6 +9,12 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Каждому клиенту соответствует Subscriber - в этом классе производится тарификация,
+ * то есть расчёт стоимости всех звонков клиента
+ * Также этот класс используется в качестве ответа на http-запрос об информации о
+ * клиента (со списком звонком)
+ */
 @Getter
 public class Subscriber {
 
