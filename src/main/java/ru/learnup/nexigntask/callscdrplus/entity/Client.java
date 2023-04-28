@@ -44,6 +44,12 @@ public class Client {
 
     }
 
+    public void copyClientFields(Client client) {
+        this.balance = client.getBalance();
+        this.benefitMinutesLeft = client.getBenefitMinutesLeft();
+        this.tariff = client.getTariff();
+    }
+
     @Override
     public String toString(){
         return "\n{id= " + id

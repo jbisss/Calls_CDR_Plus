@@ -1,6 +1,7 @@
 package ru.learnup.nexigntask.callscdrplus.dto.getnumberdetails;
 
 import lombok.Getter;
+import lombok.Setter;
 import ru.learnup.nexigntask.callscdrplus.entity.Client;
 import ru.learnup.nexigntask.callscdrplus.enums.CallCode;
 
@@ -19,6 +20,7 @@ import java.util.stream.Collectors;
 public class Subscriber {
 
     private final String number;
+    @Setter
     private String tariff;
     private final List<Call> calls = new ArrayList<>();
     private double totalCost;
