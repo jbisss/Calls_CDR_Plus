@@ -40,6 +40,8 @@ public class HrsService {
         Map<String, Subscriber> subs = subscriberCache.getSubscribers();
 
         for (Client client : clients) {
+            // тарифицируем абонентов, только с положительным балансом
+            // так как в numberTariff - информация о тарифах абонентов только с положительным балансом
             if (numberTariff.containsKey(client.getPhoneNumber()) && subs.containsKey(client.getPhoneNumber())) {
                 subs.get(client.getPhoneNumber()).countCallsCost(client);
             }

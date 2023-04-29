@@ -16,7 +16,10 @@ import java.util.Set;
 @Setter
 public class SubscriberCache {
 
+    // множество клиентов - сущностей из БД
     private Set<Client> cachedClients;
+    // словарь номер абонента - тариф
     private Map<String, Tariff> cachedNumberTariff;
-    private HashMap<String, Subscriber> subscribers = new HashMap<>();
+    // словарь номер абонента - абонент
+    private Map<String, Subscriber> subscribers = new HashMap<>();
 }

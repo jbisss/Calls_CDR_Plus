@@ -1,0 +1,208 @@
+openapi: 3.0.3
+info:
+  title: Calls_CDR_Plus
+  version: 0.0.1
+servers:
+  - url: http://localhost:7777/
+    description: Nexign bootcamp dev server
+paths:
+  /manager/abonent:
+    post:
+      summary: Метод добавления абонента в базу
+      tags:
+        - Manager
+      requestBody:
+        description: Клиент, которому нужно пополнить баланс
+        content:
+          appliction/json:
+            schema:
+              $ref: "#/components/schemas/NumberTariffBalance"
+      responses:
+        '200':
+          description: Успешный ответ с изменённым балансом пользователя
+          content:
+            appliction/json:
+              schema:
+                $ref: "#/components/schemas/NumberTariffBalance"
+  /manager/changeTariff:
+    patch:
+      summary: Метод смены тарифа
+      tags:
+        - Manager
+      requestBody:
+        description: Номер телефона и старый тариф
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/NumberTariff"
+      responses:
+        '200':
+          description: Номер телефона и новый тариф
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NumberTariff"
+  /manager/billing:
+    patch:
+      summary: Метод инициации билинга
+      tags:
+        - Manager
+      requestBody:
+        description: Действие типа "run"
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Action"
+      responses:
+        '200':
+          description: Информация о протарифицированных абонентах
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NumbersDetails"
+  /abonent/pay:
+    patch:
+      summary: Метод пополнения баланса
+      tags:
+        - Abonent
+      requestBody:
+        description: Номер телефона с количеством денег для пополнения баланса
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/NumberMoney"
+      responses:
+        '200':
+          description: Номер телефона с id клиента и обновлённым балансом
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/IdNumberMoney"
+  /abonent/report/{number}:
+    get:
+      summary: Метод получения детализации звонков конкретного абонента
+      tags:
+        - Abonent
+      parameters:
+        - name: number
+          in: path
+          required: true
+          description: Номер телефона абонента
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Информация о звонках абонента
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Subscriber"
+
+
+
+components:
+  schemas:
+    NumbersDetails:
+      type: object
+      properties:
+        numbers:
+          type: array
+          items:
+            $ref: "#/components/schemas/NumberBalance"
+    NumberMoney:
+      type: object
+      properties:
+        phoneNumber:
+          type: string
+          example: 71111111111
+        money:
+          type: integer
+          example: 4000
+    IdNumberMoney:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 425
+        phoneNumber:
+          type: string
+          example: 71111111111
+        money:
+          type: integer
+          example: 4000
+    NumberBalance:
+      type: object
+      properties:
+        phoneNumber:
+          type: string
+          example: 71111111111
+        balance:
+          type: number
+          example: '6000.5'
+    Action:
+      type: object
+      properties:
+        action:
+          type: string
+          example: run
+    NumberTariff:
+      type: object
+      properties:
+        phoneNumber:
+          type: string
+          example: 71111111111
+        tariffId:
+          type: string
+          example: '06'
+    Subscriber:
+      type: object
+      properties:
+        number:
+          type: string
+          example: 71111111111
+        tariff:
+          type: string
+          example: '06'
+        calls:
+          type: array
+          items:
+            $ref: "#/components/schemas/Call"
+        totalCost:
+          type: number
+          example: '221.0'
+    NumberTariffBalance:
+      type: object
+      properties:
+        phoneNumber:
+          type: string
+          example: 71111111111
+        tariffId:
+          type: string
+          example: 06
+        balance:
+          type: number
+          example: 4000
+    Call:
+      type: object
+      properties:
+        callCode:
+          type: string
+          enum:
+            - CALL_IN
+            - CALL_OUT
+          description: Тип звонка
+          example: CALL_IN
+        startTime:
+          type: string
+          format: 2022-12-18T00:00:00
+          example: 2022-12-18 15:58:48
+        endTime:
+          type: string
+          format: 2022-12-18T00:00:00
+          example: 2022-12-18 16:23:51
+        duration:
+          type: string
+          example: 00:25:03
+        cost:
+          type: number
+          example: '4.0'

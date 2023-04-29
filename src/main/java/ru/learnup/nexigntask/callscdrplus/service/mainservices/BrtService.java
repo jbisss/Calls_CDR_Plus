@@ -33,9 +33,9 @@ public class BrtService {
     }
 
     /**
-     * Заносим из сформированного кеша данные о всех клиентах в базу данных
+     * Заносим из сформированного кэша данные о всех клиентах в базу данных
      */
-    public void updateDatabase(){
+    public void updateDatabase() {
         clientService.saveClients(subscriberCache.getCachedClients());
     }
 }
