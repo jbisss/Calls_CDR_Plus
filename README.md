@@ -4,6 +4,8 @@
 
 ---
 
+Swagger-документация в формате [yaml](https://github.com/jbisss/Calls_CDR_Plus/blob/master/src/main/resources/swagger.yaml). Для её отображения можно использовать [Swagger Editor](https://editor.swagger.io/).
+
 Для работы приложения необходима база данных, для её локального восстановления я приложил бэкапы [в этой папке](https://github.com/jbisss/Calls_CDR_Plus/tree/master/RomashkaBackups).
 
 База данных для данной программы представлена тремя сущностями: clients, tariff, call_cost. [Здесь](https://github.com/jbisss/Calls_CDR_Plus/tree/master/src/main/java/ru/learnup/nexigntask/callscdrplus/entity) соответствующие этим сущностям Java-классы.
