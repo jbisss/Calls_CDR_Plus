@@ -47,7 +47,9 @@ public class SecurityConfig {
                 .requestMatchers("/manager/**").hasRole("MANAGER")
                 .and()
                 .csrf().disable()
-                .formLogin().disable();
+                .formLogin()
+                .and()
+                .httpBasic();
         return http.build();
     }
 }

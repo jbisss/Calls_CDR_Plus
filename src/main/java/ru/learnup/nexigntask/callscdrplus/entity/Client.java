@@ -1,19 +1,16 @@
 package ru.learnup.nexigntask.callscdrplus.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import jakarta.persistence.Id;
-import jakarta.persistence.Column;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.JoinColumn;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import ru.learnup.nexigntask.callscdrplus.listener.ClientChangeListener;
 
 /**
  * Класс-сущность, представляющий данные из таблицы clients
  */
 @Entity
 @Table(name = "clients")
+@EntityListeners(ClientChangeListener.class)
 @Getter
 @Setter
 public class Client {
@@ -45,6 +42,12 @@ public class Client {
 
     public Client() {
 
+    }
+
+    public void copyClientFields(Client client) {
+        this.balance = client.getBalance();
+        this.benefitMinutesLeft = client.getBenefitMinutesLeft();
+        this.tariff = client.getTariff();
     }
 
     @Override

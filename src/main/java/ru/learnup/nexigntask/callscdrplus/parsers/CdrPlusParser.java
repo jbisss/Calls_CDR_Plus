@@ -10,6 +10,11 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
+/**
+ * Здесь парсим конечный cdrPlus-файл со всей необходимой информацией о звонках.
+ * Заполняем словарь Subscriber'ов данными о звонках, с целью их дальнейшей тарификации
+ * в HrsService'е после парсинга этого файла.
+ */
 @Component
 public class CdrPlusParser implements Parser {
 
@@ -33,8 +38,8 @@ public class CdrPlusParser implements Parser {
         while (line != null) {
             line = line.replaceAll(" ", "");
             String[] tokens = line.split(",");
-            // если абонент существует в кэше - добавляем ему звонок
-            // иначе создаём нового абонента и передаём звонок ему
+            // если абонент в виде Subscriber уже существует в кэше - добавляем ему звонок
+            // иначе создаём нового абонента в виде Subscriber и передаём звонок ему
             if (subscriberCache.getSubscribers().containsKey(tokens[1])) {
                 subscriberCache.getSubscribers().get(tokens[1]).addCall(tokens[0], tokens[2], tokens[3]);
             } else {
