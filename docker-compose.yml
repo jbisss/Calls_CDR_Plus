@@ -1,0 +1,41 @@
+version: "3.9"
+
+services:
+  # Раздел для описания контейнера с БД.
+  postgres:
+    image: postgres:14
+    container_name: postgres
+    ports:
+      - "5432:5432"
+    # Проверка готовности БД к работе.
+    healthcheck:
+      test: [ "CMD", "pg_isready","-d","postgres","-U","postgres" ]
+      interval: 5s
+      timeout: 1s
+      retries: 5
+      start_period: 5s
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres"
+      POSTGRES_DB: "postgres"
+    # Используемый тип сети при запуске container.
+    network_mode: host
+    # Добавление файла initDB.sql, в котором хранятся скрипты инициализации БД.
+    volumes:
+      - ./initDB.sql:/docker-entrypoint-initdb.d/initDB.sql
+    restart: always
+  # Раздел для описания компонента 'srv'.
+  srv:
+    image:  calls-cdr-plus:latest
+    restart: always
+    container_name: srv
+    ports:
+      - 8802:8802
+    network_mode: host
+    # Зависимость от других сервисов
+    depends_on:
+      # Сервис 'srv' зависит от 'postgres'.
+      # Прежде чем запустить 'srv' необходимо дождаться запуска 'postgres'.
+      # Условием запуска сервиса 'postgres' является его healthcheck.
+      postgres:
+        condition: service_healthy

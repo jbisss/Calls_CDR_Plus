@@ -216,7 +216,7 @@ public class CdrService {
         Random random = new Random();
         long startEpochSecond = startTime.toEpochSecond(ZoneOffset.UTC);
         long endEpochSecond = endTime.toEpochSecond(ZoneOffset.UTC);
-        long randomEpochSecond = startEpochSecond + random.nextLong((Math.abs(endEpochSecond - startEpochSecond)) + 1);
+        long randomEpochSecond = startEpochSecond + (long) (random.nextDouble() * (endEpochSecond - startEpochSecond + 1));
         Instant randomInstant = Instant.ofEpochSecond(randomEpochSecond);
         return LocalDateTime.ofInstant(randomInstant, ZoneOffset.UTC);
     }
