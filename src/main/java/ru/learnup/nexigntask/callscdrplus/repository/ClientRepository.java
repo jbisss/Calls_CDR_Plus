@@ -2,12 +2,14 @@ package ru.learnup.nexigntask.callscdrplus.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 import ru.learnup.nexigntask.callscdrplus.entity.Client;
 import ru.learnup.nexigntask.callscdrplus.dao.NumberTariff;
 
 import java.util.List;
 import java.util.Set;
 
+@Repository("clientRepositoryJpa")
 public interface ClientRepository extends JpaRepository<Client, Long> {
 
     /**

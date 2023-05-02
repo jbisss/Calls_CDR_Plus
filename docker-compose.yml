@@ -17,7 +17,7 @@ services:
     environment:
       POSTGRES_USER: "postgres"
       POSTGRES_PASSWORD: "postgres"
-      POSTGRES_DB: "postgres"
+      POSTGRES_DB: "RomashkaDb"
     # Используемый тип сети при запуске container.
     network_mode: host
     # Добавление файла initDB.sql, в котором хранятся скрипты инициализации БД.
@@ -30,7 +30,7 @@ services:
     restart: always
     container_name: srv
     ports:
-      - 8802:8802
+      - "8802:8802"
     network_mode: host
     # Зависимость от других сервисов
     depends_on:

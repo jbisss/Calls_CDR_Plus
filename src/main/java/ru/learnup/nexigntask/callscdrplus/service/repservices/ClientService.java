@@ -1,5 +1,7 @@
 package ru.learnup.nexigntask.callscdrplus.service.repservices;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import ru.learnup.nexigntask.callscdrplus.entity.Client;
 import ru.learnup.nexigntask.callscdrplus.entity.Tariff;
@@ -15,11 +17,9 @@ import java.util.stream.Collectors;
 @Service
 public class ClientService {
 
-    private final ClientRepository repository;
-
-    public ClientService(ClientRepository repository) {
-        this.repository = repository;
-    }
+    @Autowired
+    @Qualifier("clientRepositoryJpa")
+    private ClientRepository clientRepository;
 
     /**
      * Получаем множество номеров
@@ -27,7 +27,7 @@ public class ClientService {
      * @return множество номеров телефонов
      */
     public Set<String> getNumbers() {
-        return repository.findAllNumbers();
+        return clientRepository.findAllNumbers();
     }
 
     /**
@@ -36,7 +36,7 @@ public class ClientService {
      * @return множетсво клиентов
      */
     public Set<Client> getClients(){
-        return new HashSet<>(repository.findAll());
+        return new HashSet<>(clientRepository.findAll());
     }
 
     /**
@@ -45,7 +45,7 @@ public class ClientService {
      * @return множество пар номер телефона-тариф
      */
     public Map<String,Tariff> getPositive(){
-        List<NumberTariff> numberTariffs = repository.findPositiveBalance();
+        List<NumberTariff> numberTariffs = clientRepository.findPositiveBalance();
         return numberTariffs.stream()
                 .collect(Collectors.toMap(NumberTariff::getNumber, NumberTariff::getTariffId));
     }
@@ -56,7 +56,7 @@ public class ClientService {
      * @param clients множество клиентов
      */
     public void saveClients(Set<Client> clients){
-        repository.saveAll(clients);
+        clientRepository.saveAll(clients);
     }
 
     /**
@@ -65,7 +65,7 @@ public class ClientService {
      * @param client клиент
      */
     public void saveClient(Client client){
-        repository.save(client);
+        clientRepository.save(client);
     }
 
     /**
@@ -75,7 +75,7 @@ public class ClientService {
      * @return клиент
      */
     public Client getClientByPhoneNumber(String phoneNumber){
-        return repository.findClientByPhoneNumber(phoneNumber);
+        return clientRepository.findClientByPhoneNumber(phoneNumber);
     }
 
     /**
@@ -84,6 +84,6 @@ public class ClientService {
      * @return long maxId
      */
     public long getMaxId() {
-        return repository.findMaxId();
+        return clientRepository.findMaxId();
     }
 }

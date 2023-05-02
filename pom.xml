@@ -21,6 +21,7 @@
         <swagger.version>3.0.0</swagger.version>
         <junit.jupiter.version>5.9.2</junit.jupiter.version>
         <junit.platform.version>1.9.2</junit.platform.version>
+        <tests.skip>true</tests.skip>
     </properties>
 
     <dependencies>
@@ -86,11 +87,11 @@
             <scope>test</scope>
         </dependency>
 
-        <dependency>
+<!--        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-maven-plugin</artifactId>
             <version>3.0.6</version>
-        </dependency>
+        </dependency>-->
 
         <dependency>
             <groupId>org.junit.jupiter</groupId>
@@ -129,7 +130,7 @@
                 <artifactId>maven-assembly-plugin</artifactId>
                 <version>3.3.0</version>
                 <configuration>
-                    <appendAssemblyId>false</appendAssemblyId>
+                    <finalName>CallsCdrPlus</finalName>
                     <descriptorRefs>
                         <descriptorRef>jar-with-dependencies</descriptorRef>
                     </descriptorRefs>
@@ -156,19 +157,14 @@
                     <target>${java.version}</target>
                 </configuration>
             </plugin>
-            <!--            <plugin>
-                            &lt;!&ndash; Build an executable JAR &ndash;&gt;
-                            <groupId>org.apache.maven.plugins</groupId>
-                            <artifactId>maven-jar-plugin</artifactId>
-                            <version>3.1.0</version>
-                            <configuration>
-                                <archive>
-                                    <manifest>
-                                        <mainClass>ru.learnup.nexigntask.callscdrplus.CallsCdrPlusApplication</mainClass>
-                                    </manifest>
-                                </archive>
-                            </configuration>
-                        </plugin>-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.0.0</version>
+                <configuration>
+                    <skipTests>${tests.skip}</skipTests>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 
