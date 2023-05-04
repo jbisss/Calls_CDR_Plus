@@ -18,8 +18,6 @@ services:
       POSTGRES_USER: "postgres"
       POSTGRES_PASSWORD: "postgres"
       POSTGRES_DB: "RomashkaDb"
-    # Используемый тип сети при запуске container.
-    network_mode: host
     # Добавление файла initDB.sql, в котором хранятся скрипты инициализации БД.
     volumes:
       - ./initDB.sql:/docker-entrypoint-initdb.d/initDB.sql
@@ -27,11 +25,15 @@ services:
   # Раздел для описания компонента 'srv'.
   srv:
     image:  calls-cdr-plus:latest
+    environment:
+      SPRING_DATASOURCE_URL: "jdbc:postgresql://postgres:5432/RomashkaDb"
+      SPRING_DATASOURCE_USERNAME: "postgres"
+      SPRING_DATASOURCE_PASSWORD: "postgres"
     restart: always
     container_name: srv
     ports:
-      - "8802:8802"
-    network_mode: host
+      - "7777:7777"
+    # network_mode: host
     # Зависимость от других сервисов
     depends_on:
       # Сервис 'srv' зависит от 'postgres'.
