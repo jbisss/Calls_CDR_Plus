@@ -4,6 +4,8 @@
 
 ---
 
+Контейнер с сервером на DockerHub [тут](https://hub.docker.com/repository/docker/jbisss/calls-cdr-plus/general).
+
 Swagger-документация в формате [yaml](https://github.com/jbisss/Calls_CDR_Plus/blob/master/src/main/resources/swagger.yaml). Для её отображения можно использовать [Swagger Editor](https://editor.swagger.io/).
 
 Для работы приложения необходима база данных, для её локального восстановления я приложил бэкапы [в этой папке](https://github.com/jbisss/Calls_CDR_Plus/tree/master/RomashkaBackups).
