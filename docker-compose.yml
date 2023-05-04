@@ -24,7 +24,7 @@ services:
     restart: always
   # Раздел для описания компонента 'srv'.
   srv:
-    image:  calls-cdr-plus:latest
+    image:  jbisss/calls-cdr-plus:latest
     environment:
       SPRING_DATASOURCE_URL: "jdbc:postgresql://postgres:5432/RomashkaDb"
       SPRING_DATASOURCE_USERNAME: "postgres"
